@@ -102,6 +102,7 @@ class hireView(APIView):
             hireq['장애인채용'] = hires['qualified_apply']
             hireq['우대사항'] = hires['qualified_apply']
             indented_json['지원자격'] = hireq
+            print(indented_json)
             hire = {}
             hire['고용형태'] = hires['hire_type'] 
             hire['계약기간'] = hires['hire_contract']             
@@ -110,12 +111,14 @@ class hireView(APIView):
             hire['직급'] = hires['hire_rank']  
             hire['직책'] = hires['hire_role']  
             indented_json['근무조건'] = hire 
+            print(indented_json)
             submit = {}
             submit['접수기간']  = hires['submit_period']
             submit['접수방법']  = hires['submit_type']
             submit['접수 이메일']  = hires['submit_address']
             submit['제출 서류']  = hires['submit_portpolio']
-            indented_json['제출'] = submit 
+            indented_json['제출'] = submit
+            print(indented_json) 
             work={}
             work['근무지역'] = hires['work_region']
             work['근무요일'] = hires['work_day']
@@ -123,11 +126,13 @@ class hireView(APIView):
             work['복리후생'] = hires['work_benefits']
             work['장애인편의시설'] = hires['work_facility']
             indented_json['근무환경'] = work 
+            print(indented_json)
             officer = {}
             officer['담당자'] = hires['officer_name']
             officer['전화번호'] = hires['officer_tel']
             officer['이메일'] = hires['officer_email']
-            indented_json['지원자격'] = officer
+            indented_json['담당자'] = officer
+            print(indented_json)
             indented_list.append(indented_json)
         return Response(indented_list)
 class locationView(APIView):
