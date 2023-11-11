@@ -26,10 +26,40 @@ function Welfare() {
                 const data = res.data;
                 setLocations(data);
                 data.forEach((location) => {
-                    const { lat, lon } = location;
+                    const { lat, lon, name, tel, address } = location;
                     const markerPosition = new kakao.maps.LatLng(lat, lon);
                     const marker = new kakao.maps.Marker({ position: markerPosition });
                     marker.setMap(map);
+
+                    let iwContent = 
+                        `<div style="padding:5px;">
+                            이름: ${name}<br>
+                            주소: ${address}
+                        </div>`;
+                    
+                    if (tel != "nan") {
+                        iwContent = 
+                        `<div style="padding:5px;">
+                            이름: ${name}<br>
+                            전화번호: ${tel}<br>
+                            주소: ${address}
+                        </div>`;
+                    }
+
+                    const iwPosition = markerPosition; 
+                    
+                    const infowindow = new kakao.maps.InfoWindow({
+                        position : iwPosition, 
+                        content : iwContent 
+                    });
+                    
+                    kakao.maps.event.addListener(marker, 'mouseover', function() {
+                        infowindow.open(map, marker); 
+                    });
+
+                    kakao.maps.event.addListener(marker, 'mouseout', function() {
+                        infowindow.close();
+                    });
                 });
             }).catch((error) => {
                 console.error("There was an error!", error);
