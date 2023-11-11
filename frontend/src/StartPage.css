@@ -71,3 +71,23 @@
         margin: 0 auto;
     }
 }
+
+@media (min-width: 834px) {
+    .row {
+        left: 15vh;
+        top: 50vh;
+    }
+    
+}
+
+@media (min-width: 1194px) {
+    .row {
+        left: 45vh;
+    }
+}
+
+@media (min-width: 1200px) {
+    .row {
+        left: 20vh;
+    }
+}
