@@ -1,0 +1,30 @@
+/*이곳엔 공통되는 디자인 요소를 넣어준다.*/
+
+/*화면채움*/
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+img {
+    object-fit:cover;
+}
+.background {
+    position: relative;
+    background-color:#F8F8F8F8;
+    z-index: 0;
+    width: 100%;
+    height: 53vh;
+}
+
+.upper {
+    background-color: #FFE566;
+    z-index: 1;
+    width: 100%;
+    height: 40vh;
+    /* border속성을 주면 빈부분 배경이 F8F8F8F8로 채워지지않음,,ㅜ
+    border-bottom-left-radius:30px;
+    border-bottom-right-radius:30px;
+    */
+}

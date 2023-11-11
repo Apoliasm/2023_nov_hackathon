@@ -1,0 +1,66 @@
+.aibutton {
+    background: none;
+    border: none;
+    position: absolute; /* 부모 속성이 background이므로, absolute로 위치를 고정시킨다. */
+    right: 0;
+    bottom: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.layer1 {
+    display:flex; /* 가로배치 */
+}
+
+
+.benefitbutton {
+    height: auto;
+    background: none;
+    border: none;
+    z-index: 3;
+
+}
+
+.welfarebutton {
+    height: auto;
+    background: none;
+    border: none;
+    z-index: 3;
+
+}
+
+.layer2 {
+    display: flex; /* 가로배치 */
+}
+
+
+.jobsbutton {
+    height: auto;
+    background: none;
+    border: none;
+
+}
+
+.myinfobutton {
+    height: auto;
+    background: none;
+    border: none;
+
+}
+
+/*반응형 web*/
+.benefitbutton img,
+.welfarebutton img,
+.jobsbutton img,
+.myinfobutton img {
+    width: 50vw; /* 기본적으로는 화면 너비의 50%로 설정 */
+}
+
+@media (min-width: 600px) {
+    .benefitbutton img,
+    .welfarebutton img,
+    .jobsbutton img,
+    .myinfobutton img {
+        width: 15vh; /* 화면 너비가 600px 이상일 때는 크기를 뷰포트 높이의 15%로 설정 */
+    }
+}
