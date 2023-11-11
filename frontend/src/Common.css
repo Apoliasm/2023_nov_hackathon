@@ -19,6 +19,7 @@ img {
 }
 
 .upper {
+    overflow: hidden;
     background-color: #FFE566;
     z-index: 1;
     width: 100%;

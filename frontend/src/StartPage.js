@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Common.css";
 import "./StartPage.css";
 
+import Banner from './Banner';
 import aiImage from './image/ai.png';
 import benefitImage from './image/benefit.png';
 import welfareImage from './image/welfare.png';
@@ -32,6 +33,7 @@ function StartPage() {
     return (
         <div>
             <div className="upper">
+                <Banner />
             </div>
             <div className="background">
                 <div className="layer1">
