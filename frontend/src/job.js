@@ -12,7 +12,6 @@ function Job({ id, title, description }) {
 
   return (
     <div onClick={handleClick}>
-        <p>{id}</p>
       <p>{title}</p>
       {/* <p>{description}</p> */}
     </div>
