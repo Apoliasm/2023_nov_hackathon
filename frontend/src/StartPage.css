@@ -67,7 +67,7 @@
         width: 15vh; /* 화면 너비가 600px 이상일 때는 크기를 뷰포트 높이의 15%로 설정 */
     }
     .aibutton {
-        position: static;
+        position: fixed;
         margin: 0 auto;
     }
 }

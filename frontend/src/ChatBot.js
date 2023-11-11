@@ -75,8 +75,6 @@ function ChatBot() {
                 chat
             </div>
 
-
-
             <div className="background">
                 <div style={{ position: "relative", height: "500px" }}>
                 <MainContainer className="chat-container">
@@ -91,14 +89,11 @@ function ChatBot() {
                         <Avatar src={avatarImage} name="희망이" />      
                         <MessageGroup.Messages>
                             <Message model={{
-                        message: "안녕하세요! 저는 희망을 주는 AI 비서 희망이에요!"
-                        }} />
-                            <Message model={{
-                        message: "궁금한 게 있으면 무엇이든 말씀해 주세요!"
+                        message: "Hello my friend"
                         }} />
                         </MessageGroup.Messages>
-                        <MessageGroup.Footer>희망이</MessageGroup.Footer>
-                        </MessageGroup>
+                        <MessageGroup.Footer>Message group footer</MessageGroup.Footer>
+                        </MessageGroup> */}
 
                         {messages.map((msg, index) => (
                             <Message
@@ -106,9 +101,7 @@ function ChatBot() {
                             model={msg}
                             >
                             <Avatar src={msg.sender === "User" ? userImage : avatarImage} name={msg.sender} />
-                            <Message.Footer sender={msg.sender} />
                             </Message>
-                            
                         ))}
 
                         {/* messages 배열을 map 함수 이용해 순회하기
@@ -120,7 +113,7 @@ function ChatBot() {
 
 
                     </MessageList>
-                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="Type message here" attachButton={false}/>                 
+                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="Type message here"/>                 
                     </ChatContainer>
                 </MainContainer>
                 </div>
