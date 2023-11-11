@@ -58,7 +58,7 @@ function ChatBot() {
                 {
                     message: "Siuuuuuuuuuuuuuuuuuuuuuuuuuu",
                     sentTime: "just now",
-                    sender: "ChatBot",
+                    sender: "희망이",
                     direction: "incoming",
                     position: "single",
                     type: "text"
@@ -87,8 +87,8 @@ function ChatBot() {
                             <Avatar src={avatarImage} name="Zoe" />
                         </MessageSeparator>
 
-                        <MessageGroup direction="incoming" sender="ChatBot" sentTime="just now">
-                        <Avatar src={avatarImage} name="HopeAI" />      
+                        <MessageGroup direction="incoming" sender="희망이" sentTime="just now">
+                        <Avatar src={avatarImage} name="희망이" />      
                         <MessageGroup.Messages>
                             <Message model={{
                         message: "안녕하세요! 저는 희망을 주는 AI 비서 희망이에요!"
