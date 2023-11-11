@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import axios from "axios";
 import "./Common.css";
 
 const { kakao } = window;
 
 function Welfare() {
     const navigate = useNavigate();
+    const [locations, setLocations] = useState([]);
+
     const handleBackClick = () => {
         navigate('/');
     };
@@ -16,7 +19,21 @@ function Welfare() {
             center: new kakao.maps.LatLng(35.888039, 128.611373),
             level: 3
         };
-        new kakao.maps.Map(container, options);
+        const map = new kakao.maps.Map(container, options);
+
+        axios.get(`http://127.0.0.1:8000/father/location`)
+            .then((res) => {
+                const data = res.data;
+                setLocations(data);
+                data.forEach((location) => {
+                    const { lat, lon } = location;
+                    const markerPosition = new kakao.maps.LatLng(lat, lon);
+                    const marker = new kakao.maps.Marker({ position: markerPosition });
+                    marker.setMap(map);
+                });
+            }).catch((error) => {
+                console.error("There was an error!", error);
+            });
     }, []);
 
     return (
