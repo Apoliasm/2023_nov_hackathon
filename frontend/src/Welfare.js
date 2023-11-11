@@ -26,7 +26,9 @@ function Welfare() {
                     <button className="upper2-button" onClick={handleBackClick}>←</button>
                     복지관
                 </div>
+                <div>검색창 올부분</div>
                 <div id="map" style={{
+                    borderRadius:'25px',
                     width: '100%',
                     height: '70vh'
                 }}></div>
