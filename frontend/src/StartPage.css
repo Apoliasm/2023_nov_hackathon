@@ -1,24 +1,27 @@
+.row {
+    position: absolute;
+    top: 35vh;
+}
+
 .aibutton {
+    width: 100%;
+    max-width: 200px;
     background: none;
     border: none;
-    position: absolute; /* 부모 속성이 background이므로, absolute로 위치를 고정시킨다. */
+    position: fixed; 
     right: 0;
     bottom: 0;
-    margin-right: 0.5rem;
-    margin-bottom: 1rem;
+    margin-right: -3rem;
+    margin-bottom: 0.2rem;
 }
-
-.layer1 {
-    display:flex; /* 가로배치 */
-}
-
 
 .benefitbutton {
     height: auto;
     background: none;
     border: none;
     z-index: 3;
-
+    margin-right: -5px;
+    margin-left: 0px;
 }
 
 .welfarebutton {
@@ -26,34 +29,34 @@
     background: none;
     border: none;
     z-index: 3;
-
+    margin-right: -5px;
+    margin-left: 0px;
 }
-
-.layer2 {
-    display: flex; /* 가로배치 */
-}
-
 
 .jobsbutton {
     height: auto;
     background: none;
     border: none;
-
+    margin-right: -5px;
+    margin-left: 0px;
 }
 
 .myinfobutton {
     height: auto;
     background: none;
     border: none;
-
+    margin-right: -5px;
+    margin-left: 0px;
 }
 
 /*반응형 web*/
 .benefitbutton img,
 .welfarebutton img,
 .jobsbutton img,
+.aibutton img,
 .myinfobutton img {
-    width: 50vw; /* 기본적으로는 화면 너비의 50%로 설정 */
+    max-width: 100%; /* 기본적으로는 화면 너비의 50%로 설정 */
+    max-height: 100%;
 }
 
 @media (min-width: 600px) {
@@ -62,5 +65,9 @@
     .jobsbutton img,
     .myinfobutton img {
         width: 15vh; /* 화면 너비가 600px 이상일 때는 크기를 뷰포트 높이의 15%로 설정 */
+    }
+    .aibutton {
+        position: static;
+        margin: 0 auto;
     }
 }

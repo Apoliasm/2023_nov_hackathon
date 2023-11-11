@@ -1,3 +1,6 @@
+/*이곳에 챗봇 넣을것.*/ 
+import React from "react";
+
 function ChatBot() {
     return (
         <div>

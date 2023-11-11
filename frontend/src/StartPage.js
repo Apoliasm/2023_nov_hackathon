@@ -36,28 +36,33 @@ function StartPage() {
                 <div className="upper">
                     <Banner />
                 </div>
-                <div className="layer1">
+                <div class="row g-0">
+                    <div class="col-6">
                         <button className="benefitbutton" onClick={handleBenefitClick}>
                             <img src={benefitImage} alt="혜택" />
                         </button>
+                    </div>
+                    <div class="col-6">
                         <button className="welfarebutton" onClick={handleWelfareClick}>
                             <img src={welfareImage} alt="복지관" />
                         </button>
-                </div>
-                <div className="layer2">
-                    <button className="jobsbutton" onClick={handleJobsClick}>
+                    </div>
+                    <div class="col-6">
+                        <button className="jobsbutton" onClick={handleJobsClick}>
                             <img src={jobsImage} alt="일자리" />
                         </button>
+                    </div>
+                    <div class="col-6">
                         <button className="myinfobutton" onClick={handleMyInfoClick}>
                             <img src={myinfoImage} alt="내 정보" />
                         </button>
+                    </div>
                 </div>
-                    <button className="aibutton" onClick={handleAiClick}>
-                        <img src={aiImage} alt="Ai" /> 
-                    </button>
+                <button className="aibutton" onClick={handleAiClick}>
+                    <img src={aiImage} alt="Ai" /> 
+                </button>
             </div>
         </div>
-        
     )
 }
 

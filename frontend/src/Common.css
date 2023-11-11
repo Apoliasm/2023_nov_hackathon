@@ -13,7 +13,7 @@ img {
 }
 
 .backdrop {
-    position: fixed;
+    position: relative;
     z-index: 0;
     background-color: #F8F8F8F8;
     width: 100%;
