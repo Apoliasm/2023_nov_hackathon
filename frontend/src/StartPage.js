@@ -32,29 +32,29 @@ function StartPage() {
 
     return (
         <div>
-            <div className="upper">
-                <Banner />
-            </div>
-            <div className="background">
+            <div className="backdrop">
+                <div className="upper">
+                    <Banner />
+                </div>
                 <div className="layer1">
-                    <button className="benefitbutton" onClick={handleBenefitClick}>
-                        <img src={benefitImage} alt="혜택" />
-                    </button>
-                    <button className="welfarebutton" onClick={handleWelfareClick}>
-                        <img src={welfareImage} alt="복지관" />
-                    </button>
+                        <button className="benefitbutton" onClick={handleBenefitClick}>
+                            <img src={benefitImage} alt="혜택" />
+                        </button>
+                        <button className="welfarebutton" onClick={handleWelfareClick}>
+                            <img src={welfareImage} alt="복지관" />
+                        </button>
                 </div>
                 <div className="layer2">
-                <button className="jobsbutton" onClick={handleJobsClick}>
-                        <img src={jobsImage} alt="일자리" />
-                    </button>
-                    <button className="myinfobutton" onClick={handleMyInfoClick}>
-                        <img src={myinfoImage} alt="내 정보" />
-                    </button>
+                    <button className="jobsbutton" onClick={handleJobsClick}>
+                            <img src={jobsImage} alt="일자리" />
+                        </button>
+                        <button className="myinfobutton" onClick={handleMyInfoClick}>
+                            <img src={myinfoImage} alt="내 정보" />
+                        </button>
                 </div>
-                <button className="aibutton" onClick={handleAiClick}>
-                    <img src={aiImage} alt="Ai" /> 
-                </button>
+                    <button className="aibutton" onClick={handleAiClick}>
+                        <img src={aiImage} alt="Ai" /> 
+                    </button>
             </div>
         </div>
         
