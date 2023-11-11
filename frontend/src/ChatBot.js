@@ -96,6 +96,9 @@ function ChatBot() {
                             <Message model={{
                         message: "궁금한 게 있으면 무엇이든 말씀해 주세요!"
                         }} />
+                            <Message model={{
+                        message: "예시 -     "
+                        }} />
                         </MessageGroup.Messages>
                         <MessageGroup.Footer>희망이</MessageGroup.Footer>
                         </MessageGroup>
