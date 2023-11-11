@@ -32,7 +32,7 @@ function MyInfo() {
                     내 정보
                 </div>
                 <div className="button-container">
-                    <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>신청 가능</button>
+                    <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>신청 예정</button>
                     <button className={`right-button ${view === "completed" ? "selected" : ""}`} onClick={handleClickCompleted}>신청 완료</button>
                 </div>
                 {view === "available" ? (
@@ -42,7 +42,12 @@ function MyInfo() {
                                 <div key={item.id}>{item.name}</div>
                             ))
                         ) : (
-                            <div>가능한 신청이 없습니다.</div>
+                            <div>
+                                <h1>혜택</h1>
+                                가능한 혜택이 없습니다.
+                                <h1>일자리</h1>
+                                내역 없음.
+                            </div>
                         )}
                     </div>
                 ) : (
