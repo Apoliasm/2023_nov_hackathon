@@ -1,0 +1,77 @@
+/*이곳엔 공통되는 디자인 요소를 넣을것.*/
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+/*화면채움*/
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    object-fit:cover;
+}
+
+.backdrop {
+    
+    position: relative;
+    z-index: 0;
+    background-color: #F8F8F8F8;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.upper {
+    
+    overflow: hidden;
+    background-color: #FFE566;
+    z-index: 1;
+    width: 100%;
+    height: 40vh;
+    border-bottom-left-radius:30px;
+    border-bottom-right-radius:30px;
+}
+
+/*혜택, 복지관, 일자리, 내정보에서 사용할 container*/
+.upper2 {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+    position: relative;
+    width: 100%;
+    height: 12vh;
+    flex-shrink: 0;
+    border-radius: 0px 0px 25px 25px;
+    background: #FFE566;
+
+    color: #000;
+    font-family: Pretendard-Regular;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.upper2-button {
+    color:#000;
+    font-size: 25px;
+    background: none;
+    border: none;
+    outline: none;  /* 버튼 클릭 시 나타나는 경계선 제거 */
+    -webkit-tap-highlight-color: transparent;
+    position: absolute;
+    left: 0;
+    top: 50%;  /* 버튼을 상단에 맞춤 */
+    transform: translateY(-50%);  /* 버튼을 수직 가운데에 위치시킴 */
+    margin-left: 15px;
+}
