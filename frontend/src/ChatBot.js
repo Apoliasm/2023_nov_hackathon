@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import avatarImage from './image/hopeAI.png'; //나중에 캐릭터이미지 불러올거임 ㅋㅋ
+import avatarImage from './image/ai.png'; //나중에 캐릭터이미지 불러올거임 ㅋㅋ
 import userImage from './image/chanho.jpg';
 import "./Common.css";
 import "./ChatBot.css";
@@ -75,8 +75,6 @@ function ChatBot() {
                 chat
             </div>
 
-
-
             <div className="background">
                 <div style={{ position: "relative", height: "500px" }}>
                 <MainContainer className="chat-container">
@@ -87,18 +85,15 @@ function ChatBot() {
                             <Avatar src={avatarImage} name="Zoe" />
                         </MessageSeparator>
 
-                        <MessageGroup direction="incoming" sender="ChatBot" sentTime="just now">
-                        <Avatar src={avatarImage} name="HopeAI" />      
+                        {/* <MessageGroup direction="incoming" sender="Emily" sentTime="just now">
+                        <Avatar src={avatarImage} name="Emily" />      
                         <MessageGroup.Messages>
                             <Message model={{
-                        message: "안녕하세요! 저는 희망을 주는 AI 비서 희망이에요!"
-                        }} />
-                            <Message model={{
-                        message: "궁금한 게 있으면 무엇이든 말씀해 주세요!"
+                        message: "Hello my friend"
                         }} />
                         </MessageGroup.Messages>
-                        <MessageGroup.Footer>희망이</MessageGroup.Footer>
-                        </MessageGroup>
+                        <MessageGroup.Footer>Message group footer</MessageGroup.Footer>
+                        </MessageGroup> */}
 
                         {messages.map((msg, index) => (
                             <Message
@@ -106,9 +101,7 @@ function ChatBot() {
                             model={msg}
                             >
                             <Avatar src={msg.sender === "User" ? userImage : avatarImage} name={msg.sender} />
-                            <Message.Footer sender={msg.sender} />
                             </Message>
-                            
                         ))}
 
                         {/* messages 배열을 map 함수 이용해 순회하기
@@ -120,7 +113,7 @@ function ChatBot() {
 
 
                     </MessageList>
-                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="Type message here" attachButton={false}/>                 
+                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="Type message here"/>                 
                     </ChatContainer>
                 </MainContainer>
                 </div>
