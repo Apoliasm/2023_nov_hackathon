@@ -11,6 +11,7 @@
     border-bottom-left-radius: 30px;
     margin-top:2vh;
     display: inline-block;
+    font-family: 'Pretendard-Regular';
 }
 
 .right-button{
@@ -20,6 +21,7 @@
     height:4vh;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+    font-family: 'Pretendard-Regular';
 }
 
 .selected {
