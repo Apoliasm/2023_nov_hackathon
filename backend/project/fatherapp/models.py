@@ -49,6 +49,7 @@ class Location(models.Model):
         return self.name
 class Welfare(models.Model):
     # 'type','service','content','target','how'
+    user_id = models.ManyToManyField(User,null=True,)
     type = models.CharField(max_length=30)
     service = models.CharField(max_length=200)
     content = models.CharField(max_length=200)
@@ -60,7 +61,7 @@ class Welfare(models.Model):
 
 class Hire(models.Model):
     user_id = models.ManyToManyField(User,null=True)
-    hire_id = models.CharField(max_length=20,default='')
+    # hire_id = models.CharField(max_length=20,default='')
     hire_title = models.CharField(max_length=50,default="")
     qualified_apply = models.CharField(max_length=20)
     qualified_education = models.CharField(max_length=20)
@@ -83,7 +84,8 @@ class Hire(models.Model):
     work_facility = models.CharField(max_length=25,default="")
     officer_name = models.CharField(max_length=25)
     officer_tel =  models.CharField(max_length=25)
+    officer_email = models.CharField(max_length=25,default="@")
     
     def __str__(self) -> str:
-        return "{}_{}".format(self.user_id,self.hire_id)
+        return "{}_{}".format(self.user_id,self.hire_title)
 

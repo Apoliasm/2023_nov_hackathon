@@ -3,9 +3,10 @@ from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework import request
 from rest_framework.response import Response
-from .models import Location,Hire,Welfare
+from .models import *
 import pandas as pd
 import json
+from .serializer import *
 # Create your views here.
 
 class basicview(APIView):
@@ -64,7 +65,7 @@ class saveHireView(APIView):
                     for key3 in keyes3:
                         vallist.append(val2[key3])
             hire_all = Hire.objects.all().count()
-            hire = Hire(str(hire_all+1),vallist[0],vallist[1],vallist[2],vallist[3],vallist[4],vallist[5],vallist[6],vallist[7],vallist[8],vallist[9],vallist[10],vallist[0],vallist[11],vallist[12],vallist[13],vallist[14],vallist[15],vallist[16],vallist[17],vallist[18],vallist[19],vallist[20],vallist[21])
+            hire = Hire(str(hire_all+1),vallist[0],vallist[1],vallist[2],vallist[3],vallist[4],vallist[5],vallist[6],vallist[7],vallist[8],vallist[9],vallist[10],vallist[11],vallist[12],vallist[13],vallist[14],vallist[15],vallist[16],vallist[17],vallist[18],vallist[19],vallist[20],vallist[21])
             hire.save()
         return Response({"status":"success"})
             
@@ -78,5 +79,60 @@ class saveWelfare(APIView):
             cur_wel.save()
         return Response({"status":"success"})
         
-                
+
+class welfareView(APIView):
+    #first view
+    def get(self,request):
+        welfare_all = Welfare.objects.all()
+        welfare_serial = WelfareSerializer(welfare_all,many=True)
+        return Response(welfare_serial.data)
+class hireView(APIView):
+    def get(self,request):
+        hire_all = Hire.objects.all()
+        hire_serial = HireSerializer(hire_all,many = True)
+        indented_list=[]
+        
+        for hires in hire_serial.data:
+            indented_json = {}
+            indented_json['id'] = hires['id']
+            indented_json['hire_title'] = hires['hire_title']
+            hireq = {}
+            hireq['경력사항'] = hires['qualified_apply']
+            hireq['학력사항'] = hires['qualified_apply']
+            hireq['장애인채용'] = hires['qualified_apply']
+            hireq['우대사항'] = hires['qualified_apply']
+            indented_json['지원자격'] = hireq
+            hire = {}
+            hire['고용형태'] = hires['hire_type'] 
+            hire['계약기간'] = hires['hire_contract']             
+            hire['급여조건'] = hires['hire_pay']  
+            hire['근무지역'] = hires['hire_region']  
+            hire['직급'] = hires['hire_rank']  
+            hire['직책'] = hires['hire_role']  
+            indented_json['근무조건'] = hire 
+            submit = {}
+            submit['접수기간']  = hires['submit_period']
+            submit['접수방법']  = hires['submit_type']
+            submit['접수 이메일']  = hires['submit_address']
+            submit['제출 서류']  = hires['submit_portpolio']
+            indented_json['제출'] = submit 
+            work={}
+            work['근무지역'] = hires['work_region']
+            work['근무요일'] = hires['work_day']
+            work['근무시간'] = hires['work_period']
+            work['복리후생'] = hires['work_benefits']
+            work['장애인편의시설'] = hires['work_facility']
+            indented_json['근무환경'] = work 
+            officer = {}
+            officer['담당자'] = hires['officer_name']
+            officer['전화번호'] = hires['officer_tel']
+            officer['이메일'] = hires['officer_email']
+            indented_json['지원자격'] = officer
+            indented_list.append(indented_json)
+        return Response(indented_list)
+class locationView(APIView):
+    def get(self,request):
+        location_all = Location.objects.all()
+        loc_serial = LocationSerializer(location_all,many=True)
+        return Response(loc_serial.data)
         
