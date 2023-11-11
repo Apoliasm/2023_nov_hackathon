@@ -89,8 +89,8 @@ function ChatBot() {
                         <Avatar src={avatarImage} name="희망이" />      
                         <MessageGroup.Messages>
                             <Message model={{
-                        message: "Hello my friend"
-                        }} />
+                            message: "Hello my friend"
+                            }} />
                         </MessageGroup.Messages>
                         <MessageGroup.Footer>Message group footer</MessageGroup.Footer>
                         </MessageGroup> */}
