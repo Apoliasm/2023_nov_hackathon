@@ -93,7 +93,7 @@ function ChatBot() {
                             }} />
                         </MessageGroup.Messages>
                         <MessageGroup.Footer>Message group footer</MessageGroup.Footer>
-                        </MessageGroup> */}
+                        </MessageGroup> 
 
                         {messages.map((msg, index) => (
                             <Message
