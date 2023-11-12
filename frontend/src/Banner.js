@@ -4,6 +4,9 @@ import './module/slick.css';
 import './module/slick-theme.css';
 
 import banner1 from './image/banner1.png';
+import banner2 from './image/banner2.png';
+import banner3 from './image/banner3.png';
+import banner4 from './image/banner4.png';
 
 export default class SimpleSlider extends Component {
     render() {
@@ -50,13 +53,13 @@ export default class SimpleSlider extends Component {
               <img src={banner1} alt="banner1" />
             </div>
             <div>
-              <img src={banner1} alt="banner1" />
+              <img src={banner2} alt="banner2" />
             </div>
             <div>
-              <img src={banner1} alt="banner1" />
+              <img src={banner3} alt="banner3" />
             </div>
             <div>
-              <img src={banner1} alt="banner1" />
+              <img src={banner4} alt="banner4" />
             </div>
           </Slider>
         </div>

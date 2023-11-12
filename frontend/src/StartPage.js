@@ -9,6 +9,8 @@ import benefitImage from './image/benefit.png';
 import welfareImage from './image/welfare.png';
 import jobsImage from './image/jobs.png';
 import myinfoImage from './image/myinfo.png';
+import bannerBg from './image/banner.png';
+
 
 function StartPage() {
 
@@ -32,10 +34,11 @@ function StartPage() {
 
     return (
         <div>
-            <div className="backdrop">
-                <div className="upper">
-                    <Banner />
-                </div>
+            <div className="background">
+                    <img src={bannerBg} style={{ width: "100%", height: "417px"}}/>
+                    <div class="bannerdiv">
+                        <Banner/>
+                    </div>
                 <div class="row g-0">
                     <div class="col-6 col-xl-3">
                         <button className="btn benefitbutton" onClick={handleBenefitClick}>

@@ -69,26 +69,102 @@ function ChatBot() {
             .then(result =>{
                 // 챗봇의 답변  
 
-                let resultdata = "hello"
-                if (result.answer[0].type == "welfare"){
-                    resultdata = result.answer[0].id.service + "이라는 기관을 추천드립니다."
-                }else if (result.answer[0].type == "hire"){
-                    resultdata = result.answer[0].id.hire_title + "은(는) 어떨까요?"
-                }else{
-                    resultdata = "저는 장애인을 위한 지원금 및 일자리 정보에 대해 특화된 AI에요. 다른 질문 및 이야기에는 답변드리기 힘들 것 같아요."
-                }
+                let resultdata = "hello";
 
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    {
-                        message: resultdata,
+                if (result.answer[0].type == "welfare") {
+                    const endNumber = result.answer.length;
+                    const startNumber = 0;
+
+                    const newMessages = [];
+
+                    const newMessage = {
+                        message: "고객님을 위한 "+ result.answer.length +"개의 지원금이 있네요!", 
                         sentTime: "just now",
                         sender: "희망이",
                         direction: "incoming",
                         position: "single",
                         type: "text"
+                    };
+
+                    newMessages.push(newMessage);
+
+                    for (let i = startNumber; i < endNumber; i++) {
+                        var partdata = result.answer[i].info;
+
+                        const messageContent = partdata.service + "을 알아 보시는 것은 어떨까요?\n" +
+                            partdata.service  + "은(는) " + partdata.content + "\n" + partdata.target + "\n" + partdata.how;
+
+                        const newMessage = {
+                            message: messageContent,
+                            sentTime: "just now",
+                            sender: "희망이",
+                            direction: "incoming",
+                            position: "single",
+                            type: "text"
+                        };
+
+                        newMessages.push(newMessage);
                     }
-                ]);
+
+                    setMessages((prevMessages) => [
+                        ...prevMessages,
+                        ...newMessages
+                    ]);
+
+                }else if (result.answer[0].type == "hire"){
+                    const endnum = result.answer.length;
+                    const startnum = 0;
+
+                    const newMessages = [];
+
+                    const newMessage = {
+                        message: "고객님께 추천드릴 "+ result.answer.length +"개의 채용 정보가 있네요!", 
+                        sentTime: "just now",
+                        sender: "희망이",
+                        direction: "incoming",
+                        position: "single",
+                        type: "text"
+                    };
+
+                    newMessages.push(newMessage);
+
+                    for (let i = startnum; i < endnum; i++) {
+                        var partdata = result.answer[i].info;
+
+                        const messageContent = partdata.hire_title + "은(는) 어떠세요?\n" +
+                            partdata.qualified_apply + partdata.qualified_education;
+
+                        const newMessage = {
+                            message: messageContent,
+                            sentTime: "just now",
+                            sender: "희망이",
+                            direction: "incoming",
+                            position: "single",
+                            type: "text"
+                        };
+
+                        newMessages.push(newMessage);
+                    }
+
+                    setMessages((prevMessages) => [
+                        ...prevMessages,
+                        ...newMessages
+                    ]);
+                                  
+                }else{
+                    resultdata = "저는 장애인을 위한 지원금 및 일자리 정보에 대해 특화된 AI에요. 다른 질문 및 이야기에는 답변드리기 힘들 것 같아요."
+                    setMessages((prevMessages) => [
+                        ...prevMessages,
+                        {
+                            message: resultdata,
+                            sentTime: "just now",
+                            sender: "희망이",
+                            direction: "incoming",
+                            position: "single", 
+                            type: "text"
+                        }
+                    ]);
+                }
             })
             .catch(error => {
 
