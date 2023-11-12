@@ -9,7 +9,7 @@ from langchain.prompts.chat import (
 from langchain.chains import LLMChain
 import os
 # api key 필요
-OPENAI_API_KEY = ''
+OPENAI_API_KEY = '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'
 
 # FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)

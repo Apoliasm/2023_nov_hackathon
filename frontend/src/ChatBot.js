@@ -8,6 +8,7 @@ import "./Common.css";
 import "./ChatBot.css";
 
 import {
+    Loader,
     MessageGroup,
     MessageSeparator,
     Avatar,
@@ -50,21 +51,52 @@ function ChatBot() {
         ]);
     
         setInputValue("");  //메시지 보낸 후 입력 필드 비우기
-    
-        // 챗봇의 답변  (0.1초 후)
-        setTimeout(() => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                {
-                    message: "Siuuuuuuuuuuuuuuuuuuuuuuuuuu",
-                    sentTime: "just now",
-                    sender: "희망이",
-                    direction: "incoming",
-                    position: "single",
-                    type: "text"
+        
+        //POST 요청으로 http://127.0.0.1:8000/father/chat 에 json 형식으로 보내야 함
+        const latestMessage = inputValue;
+        const data1 = {
+            question: latestMessage
+        };
+        const serverURL = "http://127.0.0.1:8000/father/chat"
+        fetch(serverURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", // JSON 형식의 데이터를 전송한다고 알리는 헤더
+            },
+            body: JSON.stringify(data1),
+        })
+            .then(response => response.json())
+            .then(result =>{
+                // 챗봇의 답변  
+
+                let resultdata = "hello"
+                if (result.answer[0].type == "welfare"){
+                    resultdata = result.answer[0].id.service + "이라는 기관을 추천드립니다."
+                }else if (result.answer[0].type == "hire"){
+                    resultdata = result.answer[0].id.hire_title + "은(는) 어떨까요?"
+                }else{
+                    resultdata = "저는 장애인을 위한 지원금 및 일자리 정보에 대해 특화된 AI에요. 다른 질문 및 이야기에는 답변드리기 힘들 것 같아요."
                 }
-            ]);
-        }, 100); //0.1 초 지연 후 챗봇 메시지 추가
+
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    {
+                        message: resultdata,
+                        sentTime: "just now",
+                        sender: "희망이",
+                        direction: "incoming",
+                        position: "single",
+                        type: "text"
+                    }
+                ]);
+            })
+            .catch(error => {
+
+                console.error("error:", error);
+            });
+        
+        
+        
     }
 
 
@@ -102,7 +134,8 @@ function ChatBot() {
                         </MessageGroup.Messages>
                         <MessageGroup.Footer>희망이</MessageGroup.Footer>
                         </MessageGroup>
-
+                        
+    
                         {messages.map((msg, index) => (
                             <Message
                             key={index}
