@@ -7,7 +7,7 @@ from langchain.prompts.chat import (
 from langchain.chains import LLMChain
 
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = ''
 
 
 def apply_model(title, question):

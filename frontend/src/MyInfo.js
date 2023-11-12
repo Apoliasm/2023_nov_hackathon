@@ -1,58 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import axios from 'axios';
-import "./Common.css";
-import "./MyInfo.css";
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router";
+import "./Common.css";
+import "./MyInfo.css";
 
 function MyInfo() {
-    const user_info = '3'; //3급 장애인을 key로 설정. 서버로 GET요청을 보낸다.
-    /* test시 주석 삭제. 아래 더미데이터 삭제.
-    // 서버 통신 관련
-    const [benefit, setBenefit] = useState([]);
-    const [jobs, setJobs] = useState([]);
+    const user_id = "01011112222"; 
 
-    useEffect(() => {
-        axios.get(`benefitURL`) // 혜택 GET해오는 URL
-            .then(response => {
-                setbenefit(response.data);
-            })
-            .catch(error => console.error('혜택정보를 불러오는데 실패했습니다.',error));
-    }, []);
-    
-    useEffect(() => {
-        axios.get('jobsURL') // 일자리 정보 GET해오는 URL
-            .then(response => {
-                setjobs(response.data);
-            })
-            .catch(error => console.error('일자리정보를 불러오는데 실패했습니다.', error));
-    }, []);
-    
-    const [compbenefit, setcompBenefit] = useState([]);
-    const [compjobs, setcompJobs] = useState([]);
-
-    useEffect(() => {
-        axios.get(`compbenefitURL`) // 신청완료한 혜택 GET해오는 URL
-            .then(response => {
-                setcompBenefit(response.data);
-            })
-            .catch(error => console.error('신청 완료한 혜택정보를 불러오는데 실패했습니다.',error));
-    }, []);
-    
-    useEffect(() => {
-        axios.get('compjobsURL') // 신청완료한 일자리 정보 GET해오는 URL
-            .then(response => {
-                setcompJobs(response.data);
-            })
-            .catch(error => console.error('신청 완료한 일자리정보를 불러오는데 실패했습니다.', error));
-    }, []);
-    */
-    // Modal 관련 상태
     const [show, setShow] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
-    const [modalType, setModalType] = useState(""); // "" 혹은 "benefit" 혹은 "job"
+    const [modalType, setModalType] = useState(""); 
 
     const handleClose = () => setShow(false);
     const handleShowBenefit = (info) => {
@@ -67,102 +27,74 @@ function MyInfo() {
     }
 
     const [view, setView] = useState("available");
-    const [compbenefit, setcompBenefit] = useState([]);
-    const [compjobs, setcompJobs] = useState([]);
-    const [benefit, setbenefit]=useState([
-        {"id": 1,
-        "type": " 혜택, 복지, 지원금",
-        "service": " 장애수당",
-        "content": " 생활이 어려운 장애인에게 장애수당을 지급하여 생활의 안정을 돕습니다",
-        "target": " 18세 이상의 등록한 장애인 중 장애인연금법 상 중증장애인이 아닌 국민기초생활보장수급자 및 차상위 계층에게 지원합니다./소득인정액, 연령, 기타 기준은 선정기준의 내용을 참고해주시기 바랍니다.",
-        "how": " 읍면동 주민센터에 방문하여 신청하거나 복지로(bokjiro.go.kr)를 통해 온라인으로 신청이 가능합니다./복지로 온라인신청 경로 : 복지로 로그인 > 서비스 신청 > 복지서비스 신청 > 복지급여 신청 > 장애인 > 장애(아동)수당",
-        "user_id": []},
+    /* test
+    const [data, setData] = useState([
         {
-            "id": 2,
-            "type": " 혜택, 복지, 지원금",
-            "service": " 장애인연금",
-            "content": " 장애로 인하여 생활이 어려운 중증장애인의 안정된 삶을 위해 연금을 지급합니다.",
-            "target": " 18세 이상의 등록한 중중장애인 중 소득인정액이 보건복지부장관이 매년 결정·고시하는 금액 이하인 경우에 지원합니다./* 참고: 「장애인연금법」 제2조제1호, 「장애인연금법」 시행령 제2조, 장애정도판정기준(제5장 장애인연금 수급을 위한 중증장애인 판정기준)/소득인정액, 연령, 기타 기준은 선정기준의 내용을 참고해주시기 바랍니다.",
-            "how": " 읍면동 주민센터에 방문하여 신청하거나 복지로(bokjiro.go.kr)를 통해 온라인으로 신청이 가능합니다./복지로 온라인신청 경로 : 복지로 로그인 > 서비스 신청 > 복지서비스 신청 > 복지급여 신청 > 장애인 > 장애인연금",
-            "user_id": []
-        }
-    ])
-    const [jobs, setjobs] = useState([
-        {
-            "id": 1,
-            "hire_title": "풋락커코리아 매장 장애인 아르바이트 채용 (전지점 채용중)",
-            "지원자격": {
-                "경력사항": "경력무관",
-                "학력사항": "경력무관",
-                "장애인채용": "경력무관",
-                "우대사항": "경력무관"
-            },
-            "근무조건": {
-                "고용형태": "정규직",
-                "계약기간": "",
-                "급여조건": "시급\n(10,367원~12,400원)",
-                "근무지역": "서울 용산구\n서울 용산구\n부산 중구",
-                "직급": "사원급",
-                "직책": "팀원"
-            },
-            "제출": {
-                "접수기간": "2023.07.21 ~ (채용 시 마감)",
-                "접수방법": "장애인채용포털 접수, 이메일",
-                "접수 이메일": "hr.apac@footlocker.com",
-                "제출 서류": ""
-            },
-            "근무환경": {
-                "근무지역": "서울 용산구",
-                "근무요일": "협의가능",
-                "근무시간": "주 16시간",
-                "복리후생": "연차, 매년 유급 병가 10일, 직원 할인, 분기별 보너스, 유니폼, 4대보험, 단체실손보험, 명절선물, 경조휴가, 퇴직연금 가입",
-                "장애인편의시설": ""
-            },
-            "담당자": {
-                "담당자": "HR",
-                "전화번호": "010-7479-2905",
-                "이메일": "@"
-            }
-        },
-        {
-            "id": 2,
-            "hire_title": "에스앤에스 컴퍼니 직영 매장 토끼정 채용공고",
-            "지원자격": {
-                "경력사항": "경력무관",
-                "학력사항": "경력무관",
-                "장애인채용": "경력무관",
-                "우대사항": "경력무관"
-            },
-            "근무조건": {
-                "고용형태": "정규직",
-                "계약기간": "",
-                "급여조건": "월급\n(면접 시 협의)",
-                "근무지역": "대구 동구",
-                "직급": "사원급",
-                "직책": "팀원"
-            },
-            "제출": {
-                "접수기간": "2023.05.19 ~ (채용 시 마감)",
-                "접수방법": "장애인채용포털 접수",
-                "접수 이메일": "",
-                "제출 서류": "이력서"
-            },
-            "근무환경": {
-                "근무지역": "대구 동구",
-                "근무요일": "주5일",
-                "근무시간": "탄력근무제",
-                "복리후생": "4대보험, 퇴직금, 중식, 회식, 장기 근무자 포상",
-                "장애인편의시설": ""
-            },
-            "담당자": {
-                "담당자": "권현구",
-                "전화번호": "010-4539-3142",
-                "이메일": "@"
-            }
-        }
-    ])
-    const completedList = [/* 신청 완료한 리스트 데이터 */];
-
+            "hire": [
+                {
+                    "id": 2,
+                    "hire_title": "에스앤에스 컴퍼니 직영 매장 토끼정 채용공고",
+                    "qualified_apply": "경력무관",
+                    "qualified_education": "학력무관",
+                    "qualified_disabled": "장애인 우대채용\n심하지 않은 장애",
+                    "qualified_advantage": "인근거주자",
+                    "hire_type": "정규직",
+                    "hire_contract": "",
+                    "hire_pay": "월급\n(면접 시 협의)",
+                    "hire_region": "대구 동구",
+                    "hire_rank": "사원급",
+                    "hire_role": "팀원",
+                    "submit_period": "2023.05.19 ~ (채용 시 마감)",
+                    "submit_type": "장애인채용포털 접수",
+                    "submit_address": "",
+                    "submit_portpolio": "이력서",
+                    "work_region": "대구 동구",
+                    "work_day": "주5일",
+                    "work_period": "탄력근무제",
+                    "work_benefits": "4대보험, 퇴직금, 중식, 회식, 장기 근무자 포상",
+                    "work_facility": "",
+                    "officer_name": "권현구",
+                    "officer_tel": "010-4539-3142",
+                    "officer_email": "@",
+                    "user_id": [
+                        "01011112222"
+                    ]
+                }
+            ],
+            "bene": [
+                {
+                    "id": 5,
+                    "type": " 혜택, 복지, 지원금",
+                    "service": " 통합공공임대",
+                    "content": " 최저소득 계층, 저소득 서민, 젊은 층 및 장애인·국가유공자 등 사회 취약계층 등의 주거안정을 위해 공공임대주택을 공급합니다.",
+                    "target": " 일반공급 대상자는 다음과 같습니다./- (청년) 18세∼39세 이하이며 혼인 중이 아닐 것, 중위소득 150%이하/- (신혼부부ㆍ한부모가족)혼인기간이 7년 이내인 사람, 예비신혼부부, 6세 이하 자녀를 둔 사람, 6세이하 자녀를 둔 한부모 가족, 중위소득 150%이하/- (고령자) 65세 이상, 중위소득 150%이하, 총자산 32,500만원 이하, 자동차 3,557만원 이하/- (일반) 무주택세대구성원, 중위소득 150%이하/우선공급 대상자는 다음과 같습니다./- (철거민 등) 공공주택건설사업, 주거환경개선 또는 재개발사업, 도시·군계획시설사업, 공공사업 중 GB해제 택지개발사업 또는 도시개발사업, 산업단지개발사업, 부도임대주택, 재해철거 주택, 중대하자 철거주택, GB해제지역 타인토지 주택, 중위소득 100%이하/- (국가유공자등) 국가유공자 또는 유족, 보훈보상대상자 또는 유족,5·18민주유공자 또는 유족, 특수임무유공자 또는 유족, 참전유공자 또는 유족, 중위소득 100%이하/- (장기복무제대군인, 북한이탈주민등) 장기복무제대군인, 북한이탈주민, 납북피해자, 중소기업근로자, 비정규직근로자, 성폭력피해자 또는 가족, 가정위탁아동보호자, 범죄피해자, 폐탄광근로자, 파독근로자, 영구임대주택 퇴거자, 소년·소녀가정, 해외장기거주 재외동포, 국군 등록포로, 가정폭력피해자, 중위소득 100%이하, 일본군위안부 피해자/- (다자녀가구 등) 2명 이상 미성년자녀 가구, 65세 이상 직계존속 부양자, 보호대상 한부모가족, 중위소득 100%이하/- (장애인) 장애인등록증 교부자, 중위소득 100%이하/- (비주택거주자등) 쪽방, 고시원, 여인숙, 비닐간이공작물, 노숙인시설, 컨테이너, 움막, PC·만화방, 침수피해 우려 반지하·지하층, 최저주거기준미달 미성년자녀 가구, 무허가건축물 등 세입자, 중위소득 100%이하/- (기초생활보장제도 급여수급자등) 생계·주거·의료급여 수급(권)자/- (청년) 혼인 중이 아닌 18세∼39세,아동복지시설 퇴소(예정)자, 청소년쉼터 퇴소(예정)자, 중위소득 100%이하/- (신혼부부ㆍ한부모가족) 혼인기간이 7년 이내인 사람, 예비신혼부부, 6세 이하 자녀를 둔 사람, 6세이하 자녀를 둔 한부모 가족, 중위소득 100%이하/- (고령자) 65세 이상, 중위소득 100%이하",
+                    "how": " 공공주택사업자*별 입주자모집 공고에 따라 누리집 현장접수 등을 통해 청약을 신청합니다./* 한국토지주택공사, 서울주택도시공사, 경기도시공사 등/상세 모집계획, 임대료, 입주자격 등 보다 자세한 정보는 한국토지주택공사 청약센터(apply.lh.or.kr) 또는 마이홈포털(www.myhome.go.kr)을 참고하거나, 마이홈 전화상담실(1600-1004)에 문의할 수 있습니다.",
+                    "user_id": [
+                        "01011112222"
+                    ]
+                }
+            ]
+        }]);
+        const [benefit, setBenefit] = useState(data[0].bene);
+        const [jobs, setJobs] = useState(data[0].hire);
+    */
+    
+    const [benefit, setBenefit] = useState([]);
+    const [jobs, setJobs] = useState([]);
+    
+    
+    useEffect(() => {
+        axios.post('http://127.0.0.1:8000/father/user', {
+            user_id: user_id
+        })
+        .then(res => {
+            const data = res.data;
+            setBenefit(data.bene);
+            setJobs(data.hire);
+        })
+        .catch(error => console.error('Error:', error));
+    }, []);
+    
     const navigate = useNavigate();
     const handleBackClick = () => {
         navigate('/');
@@ -184,10 +116,34 @@ function MyInfo() {
                     내 정보
                 </div>
                 <div className="button-container">
-                    <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>신청 예정</button>
-                    <button className={`right-button ${view === "completed" ? "selected" : ""}`} onClick={handleClickCompleted}>신청 완료</button>
+                    <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>일자리</button>
+                    <button className={`right-button ${view === "completed" ? "selected" : ""}`} onClick={handleClickCompleted}>혜택</button>
                 </div>
                 {view === "available" ? (
+                    <div>
+                        <h1>일자리</h1>
+                        {jobs.length > 0 ? (
+                            jobs.map(job => (
+                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={job.id}>
+                                    <Card.Body>
+                                        <Card.Title>{job.hire_title}</Card.Title>
+                                        <Card.Text>{job.hire_region}</Card.Text>
+                                        <Button variant="primary" onClick={() => handleShowJob(job)}>
+                                            자세히 보기
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
+                            ))
+                        ) : (
+                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                    <Card.Body>
+                                        <Card.Title> 일자리 </Card.Title>
+                                        <Card.Text>가능한 일자리 내역이 없습니다.</Card.Text>
+                                    </Card.Body>
+                            </Card>
+                        )}
+                    </div>
+                ) : (
                     <div>
                         <h1>혜택</h1>
                         {benefit.length > 0 ? (
@@ -210,96 +166,29 @@ function MyInfo() {
                                     </Card.Body>
                             </Card>
                         )}
-                        <h1>일자리</h1>
-                        {jobs.length > 0 ? (
-                            jobs.map(job => (
-                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={job.id}>
-                                    <Card.Body>
-                                        <Card.Title>{job.hire_title}</Card.Title>
-                                        <Card.Text>{job.근무환경.근무지역}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleShowJob(job)}>
-                                            자세히 보기
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            ))
-                        ) : (
-                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
-                                    <Card.Body>
-                                        <Card.Title> 일자리 </Card.Title>
-                                        <Card.Text>가능한 일자리 내역이 없습니다.</Card.Text>
-                                    </Card.Body>
-                            </Card>
-                        )}
-                    </div>
-                ) : (
-                    <div>
-                        {compbenefit.length > 0 ? (
-                            compbenefit.map(item => (
-                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={item.id}>
-                                    <Card.Body>
-                                        <Card.Title>{item.service}</Card.Title>
-                                        <Card.Text>{item.content}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleShowBenefit(item)}>
-                                            자세히 보기
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            ))
-                        ) : (
-                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
-                                    <Card.Body>
-                                        <Card.Title> 혜택 </Card.Title>
-                                        <Card.Text>신청한 혜택이 없습니다.</Card.Text>
-                                    </Card.Body>
-                            </Card>
-                        )}
-                        {compjobs.length > 0 ? (
-                            compjobs.map(job => (
-                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={job.id}>
-                                    <Card.Body>
-                                        <Card.Title>{job.hire_title}</Card.Title>
-                                        <Card.Text>{job.근무환경.근무지역}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleShowJob(job)}>
-                                            자세히 보기
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            ))
-                        ) : (
-                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
-                                    <Card.Body>
-                                        <Card.Title> 일자리 </Card.Title>
-                                        <Card.Text>신청한 일자리가 없습니다.</Card.Text>
-                                    </Card.Body>
-                            </Card>
-                        )}
                     </div>
                 )}
                 <Modal style={{fontFamily:'Pretendard-Regular'}} show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>{modalInfo.service || modalInfo.hire_title}</Modal.Title>
                     </Modal.Header>
-                        <Modal.Body>
-                            {
-                                modalType === "benefit" ?
-                                (<>
-                                    <p>{modalInfo.content}</p>
-                                    <p>대상: {modalInfo.target}</p>
-                                    <p>방법: {modalInfo.how}</p>
-                                </>) :
-                                modalInfo.근무환경 ?
-                                (<>
-                                    <p>근무지역: {modalInfo.근무환경.근무지역}</p>
-                                    <p>근무요일: {modalInfo.근무환경.근무요일}</p>
-                                    <p>근무시간: {modalInfo.근무환경.근무시간}</p>
-                                    <p>복리후생: {modalInfo.근무환경.복리후생}</p>
-                                    <p>접수방법: {modalInfo.제출.접수방법}</p>
-                                    <p>담당자: {modalInfo.담당자.담당자}</p>
-                                </>) :
-                                (<p>일자리 정보가 없습니다.</p>)
-                            }
-                        </Modal.Body>
+                    <Modal.Body>
+                        {
+                            modalType === "benefit" ?
+                            (<>
+                                <p>{modalInfo.content}</p>
+                                <p>대상: {modalInfo.target}</p>
+                                <p>방법: {modalInfo.how}</p>
+                            </>) :
+                            (<>
+                                <p>근무지역: {modalInfo.hire_region}</p>
+                                <p>근무요일: {modalInfo.work_day}</p>
+                                <p>복리후생: {modalInfo.work_benefits}</p>
+                                <p>접수방법: {modalInfo.submit_type}</p>
+                                <p>담당자: {modalInfo.officer_name}</p>
+                            </>)
+                        }
+                    </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             닫기
