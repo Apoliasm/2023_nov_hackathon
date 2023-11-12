@@ -1,4 +1,72 @@
 .chat-container {
-
     height: 76.5vh; /* Adjust the height as needed */
-  }
+}
+
+.cs-chat-container .cs-message-input,
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor {
+  background-color: #F8F8F8;
+}
+
+.cs-button--send{
+  color: black;
+}
+
+.cs-message-input__tools:last-child .cs-button:last-child {
+  margin-right: 7px;
+}
+
+.cs-message--incoming .cs-message__content,
+.cs-message-group--incoming .cs-message-group__messages .cs-message .cs-message__content {
+  background-color: #F8F8F8;
+}
+
+.cs-message-separator::before, .cs-message-separator::after,
+.cs-message--outgoing .cs-message__content {
+  background-color: #FFE566;
+}
+
+.ps .ps__rail-x:hover, .ps .ps__rail-y:hover, .ps .ps__rail-x:focus, .ps .ps__rail-y:focus, .ps .ps__rail-x.ps--clicking, .ps .ps__rail-y.ps--clicking{
+  background-color: white;
+}
+
+.ps__rail-y:hover>.ps__thumb-y, .ps__rail-y:focus>.ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y,
+.ps__thumb-y {
+  background-color: #E3E3E3;
+}
+
+.cs-message-input__content-editor {
+  border-color: black;
+}
+
+.cs-main-container{
+  margin: 25px;
+  border: solid 3px #E3E3E3;
+}
+.cs-avatar>img {
+  width: 35px;
+  height: 35px;
+  min-width: 35px;
+  min-height: 35px;
+}
+
+.cs-message-separator{
+  margin-top: 15px;
+}
+
+.cs-message__content{
+  font-size: .80em;
+  margin-bottom: 5px;
+}
+
+.cs-message-list .cs-message.cs-message--outgoing, .cs-message-list .cs-message-group.cs-message-group--outgoing {
+  padding-left: 25px;
+}
+
+.cs-message-group--incoming .cs-message-group__messages .cs-message {
+  margin-right: 25px;
+}
+
+.cs-message.cs-message--incoming.cs-message--single .cs-message__content {
+  margin-right: 25px;
+}

@@ -10,7 +10,7 @@ import welfareImage from './image/welfare.png';
 import jobsImage from './image/jobs.png';
 import myinfoImage from './image/myinfo.png';
 import bannerBg from './image/banner.png';
-
+import Wrapper from './components/Wrapper';
 
 function StartPage() {
 
@@ -33,39 +33,41 @@ function StartPage() {
     };
 
     return (
-        <div>
-            <div className="background">
-                    <img src={bannerBg} style={{ width: "100%", height: "417px"}}/>
-                    <div class="bannerdiv">
-                        <Banner/>
+        <Wrapper>
+            <div>
+                <div className="background">
+                        <img src={bannerBg} style={{ width: "100%", height: "417px"}}/>
+                        <div class="bannerdiv">
+                            <Banner/>
+                        </div>
+                    <div class="row g-0">
+                        <div class="col-6 col-xl-3">
+                            <button className="btn benefitbutton" onClick={handleBenefitClick}>
+                                <img src={benefitImage} alt="혜택" />
+                            </button>
+                        </div>
+                        <div class="col-6 col-xl-3">
+                            <button className="btn welfarebutton" onClick={handleWelfareClick}>
+                                <img src={welfareImage} alt="복지관" />
+                            </button>
+                        </div>
+                        <div class="col-6 col-xl-3">
+                            <button className="btn jobsbutton" onClick={handleJobsClick}>
+                                <img src={jobsImage} alt="일자리" />
+                            </button>
+                        </div>
+                        <div class="col-6 col-xl-3">
+                            <button className="btn myinfobutton" onClick={handleMyInfoClick}>
+                                <img src={myinfoImage} alt="내 정보" />
+                            </button>
+                        </div>
                     </div>
-                <div class="row g-0">
-                    <div class="col-6 col-xl-3">
-                        <button className="btn benefitbutton" onClick={handleBenefitClick}>
-                            <img src={benefitImage} alt="혜택" />
-                        </button>
-                    </div>
-                    <div class="col-6 col-xl-3">
-                        <button className="btn welfarebutton" onClick={handleWelfareClick}>
-                            <img src={welfareImage} alt="복지관" />
-                        </button>
-                    </div>
-                    <div class="col-6 col-xl-3">
-                        <button className="btn jobsbutton" onClick={handleJobsClick}>
-                            <img src={jobsImage} alt="일자리" />
-                        </button>
-                    </div>
-                    <div class="col-6 col-xl-3">
-                        <button className="btn myinfobutton" onClick={handleMyInfoClick}>
-                            <img src={myinfoImage} alt="내 정보" />
-                        </button>
-                    </div>
+                    <button className="aibutton" onClick={handleAiClick}>
+                        <img src={aiImage} alt="Ai" /> 
+                    </button>
                 </div>
-                <button className="aibutton" onClick={handleAiClick}>
-                    <img src={aiImage} alt="Ai" /> 
-                </button>
             </div>
-        </div>
+        </Wrapper>
     )
 }
 

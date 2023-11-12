@@ -5,23 +5,25 @@
 .left-button{
     border:none;
     outline:none;
-    width:30%;
-    height:4vh;
+    width:43%;
+    height:6vh;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     margin-top:2vh;
     display: inline-block;
     font-family: 'Pretendard-Regular';
+    font-size: 23px;
 }
 
 .right-button{
     border:none;
     outline:none;
-    width:30%;
-    height:4vh;
+    width:43%;
+    height:6vh;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     font-family: 'Pretendard-Regular';
+    font-size: 23px;
 }
 
 .selected {

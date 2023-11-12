@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
+import { AnimatePresence } from "framer-motion";
 
 import StartPage from "./StartPage";
 import ChatBot from "./ChatBot";
@@ -17,17 +18,19 @@ function App() {
   return (
     <div>
       <Router>
-        <Routes>
-          <Route path="/" element={<StartPage />} />
-          <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/benefit" element={<Benefit />} />
-          <Route path="/welfare" element={<Welfare />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/job/:id" element={<JobDetails />} />  // 동적 route
-          <Route path="/myinfo" element={<MyInfo />} />
-          <Route path="/applypage/:id" element={<ApplyPage />} />
-          <Route path="/callpage/:id" element={<CallPage />} />
-        </Routes>
+        <AnimatePresence>
+          <Routes>
+            <Route path="/" element={<StartPage />} />
+            <Route path="/chatbot" element={<ChatBot />} />
+            <Route path="/benefit" element={<Benefit />} />
+            <Route path="/welfare" element={<Welfare />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/job/:id" element={<JobDetails />} />  // 동적 route
+            <Route path="/myinfo" element={<MyInfo />} />
+            <Route path="/applypage/:id" element={<ApplyPage />} />
+            <Route path="/callpage/:id" element={<CallPage />} />
+          </Routes>
+        </AnimatePresence>
       </Router>
     </div>
   );

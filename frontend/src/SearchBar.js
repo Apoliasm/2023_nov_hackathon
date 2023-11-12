@@ -1,18 +1,19 @@
 import * as React from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
+import searchImg from './image/search.png';
+import "./SearchBar.css";
+
 function SearchBar({ onClick, onChange }) {
   return (
     <>
       <div className="input-group">
         <input
-          type="search"
+          type="text"
           className="form-control rounded"
-          placeholder="찾고 싶으신 일자리를 입력하세요!"
+          placeholder="원하는 지역을 입력하세요!"
           onChange={onChange}
         />
-        <button type="button" id="search_btn" onClick={onClick}>
-          <BiSearchAlt2 className="search_icon"></BiSearchAlt2>
-        </button>
+        <img className="searchImg" src={searchImg} onClick={onClick}></img>
       </div>
     </>
   );

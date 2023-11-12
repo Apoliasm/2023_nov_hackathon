@@ -4,13 +4,15 @@
   import axios from 'axios';
   import "./Common.css";
   import "./benefit.css";
+  import "./Job.js";
   import SearchBar from './SearchBar';
   import Job from './Job.js';
-
+  import Wrapper from './components/Wrapper';
 
   import Button from 'react-bootstrap/Button';
   import Card from 'react-bootstrap/Card';
   import Modal from 'react-bootstrap/Modal';
+  import Rightnow from "./Rightnow";
 
   function MyModal(props) {
     const navigate = useNavigate();  // useNavigate 훅을 새로 선언
@@ -21,7 +23,7 @@
 
     const handleApplyButtonClick = () => {
         // Navigate to the application page
-        navigate(`/applypage/${props.card.id}`);
+        navigate(`/applypage/${props.card.hire_title}`);
     };
 
     
@@ -35,7 +37,7 @@
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+          <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '23px', fontWeight: 'bold' }}>
             {props.card.hire_title}
           </Modal.Title>
         </Modal.Header>
@@ -88,7 +90,7 @@
     };
   
     const filteredJobs = search.trim() === "" ? jobs : jobs.filter((job) => {
-      return job.hire_title.replace(" ", "").includes(search.toLocaleLowerCase().replace(" ", ""));
+      return job.근무조건.근무지역.replace(" ", "").replace('\n', '').includes(search.toLocaleLowerCase().replace(" ", ""));
     });
   
     const [modalShow, setModalShow] = useState(false);
@@ -100,52 +102,55 @@
     };
   
     return (
-      <div>
-        <div className="backdrop">
-          <div className="upper2">
-            <button className="upper2-button" onClick={handleBackClick}>←</button>
-            일자리
-          </div>
-          <div>
-            <SearchBar search={search} onChange={onChange} />
-          </div>
-  
-          <div style={{ position: "relative", height: "500px" }} className="my-chat-container">
-            {filteredJobs.map((card, index) => (
-              <Card key={index} className="text-center" style={{ marginBottom: '20px' }}>
-                <Card.Body>
-                  <Card.Title style={{ fontSize: '20px', fontWeight: 'bold' }}>{card.hire_title}</Card.Title>
-                  
-                  <Card.Text>
-                    <div key={index} style={{ fontSize: '14px' }}>
-                      <p><b>학력사항</b>: {card.지원자격.학력사항} </p>
-                      <p><b>경력사항</b>: {card.지원자격.경력사항}</p>
-                      <p><b>장애인 채용</b>: {card.지원자격.장애인채용}</p>
-                      <p><b>우대사항</b>: {card.지원자격.우대사항}</p>
-                    </div>
-                  </Card.Text>
+      <Wrapper>
+        <div>
+          <div className="backdrop">
+            <div className="upper2">
+              <button className="upper2-button" onClick={handleBackClick}>←</button>
+              일자리
+            </div>
+            <div>
+              <SearchBar search={search} onChange={onChange} />
+            </div>
+    
+            <div style={{ paddingBottom: "5px" }} className="my-chat-container">
+              {filteredJobs.map((card, index) => (
+                <div>
+                  {(index === 3) ? <Rightnow/>:<></>}
+                  <Card key={index} className="text-center">
+                      <Card.Body>
+                        <Card.Title style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '20px' }}>{card.hire_title}</Card.Title>
+                        
+                        <Card.Text>
+                          <div key={index} style={{ fontSize: '14px' }}>
+                            <div style={{ marginBottom: '5px' }}><b>학력사항</b>: {card.지원자격.학력사항}<br/></div>
+                            <div style={{ marginBottom: '5px' }}><b>경력사항</b>: {card.지원자격.경력사항}<br/></div>
+                            <div style={{ marginBottom: '5px' }}><b>장애인 채용</b>: {card.지원자격.장애인채용}<br/></div>
+                            <div style={{ marginBottom: '5px' }}><b>우대사항</b>: {card.지원자격.우대사항}</div>
+                          </div>
+                        </Card.Text>
 
-
-                  
-                  <Button onClick={() => handleModalOpen(card)} className="custom-button">자세히 보기</Button>
-                </Card.Body>
-              </Card>
-            ))}
-  
-            <MyModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              card={currentCard}
-            />
+                        <Button onClick={() => handleModalOpen(card)} className="custom-button">자세히 보기</Button>
+                      </Card.Body>
+                  </Card>
+                </div>
+              ))}
+    
+              <MyModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                card={currentCard}
+              />
+            </div>
+    
+            {/* <div>
+              {filteredJobs.map((job, index) => (
+                <Job key={index} id={job.id} title={job.title} description={job.description} />
+              ))}
+            </div> */}
           </div>
-  
-          {/* <div>
-            {filteredJobs.map((job, index) => (
-              <Job key={index} id={job.id} title={job.title} description={job.description} />
-            ))}
-          </div> */}
         </div>
-      </div>
+      </Wrapper>
     );
   }
 

@@ -6,6 +6,8 @@ import "./benefit.css";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
+import Wrapper from './components/Wrapper';
+import Rightnow from './Rightnow';
 
 import {
     // Search,
@@ -42,7 +44,7 @@ function MyModal(props) {
         centered
       >
         <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+        <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '23px', fontWeight: 'bold' }}>
             {props.card.service}
         </Modal.Title>
         </Modal.Header>
@@ -114,35 +116,37 @@ function Benefit() {
     }, []);
 
     return (
-        <div>
-            <div className="upper2">
-                <button className="upper2-button" onClick={handleBackClick}>←</button>
-                혜택
-            </div>
+        <Wrapper>
+            <div>
+                <div className="upper2">
+                    <button className="upper2-button" onClick={handleBackClick}>←</button>
+                    혜택
+                </div>
 
-            <div className="background">
-                <div style={{ position: "relative", height: "500px" }} className="my-chat-container">
-                    {cards.map((card, index) => (
-                        <Card key={index} className="text-center" style={{ marginBottom: '20px' }}>
-                            <Card.Body>
-                                <Card.Title style={{ fontSize: '25px', fontWeight: 'bold' }}>{card.service}</Card.Title>
-                                <Card.Text style={{ fontSize: '16px' }}>{card.content}</Card.Text>
-                                <Button onClick={() => handleModalOpen(card)} className="custom-button">전화번호 보기</Button>
-                            </Card.Body>
-                        </Card>
-                      
-                        
-                    ))}
+                <div className="bg">
+                    <div style={{ position: "relative", paddingBottom: "5px" }} className="my-chat-container">
+                        {cards.map((card, index) => (
+                            <div>
+                                {(index === 1 || index === 3 || index === 6)? <Rightnow/>:<></>}
+                                <Card key={index} className="text-center" style={{ marginBottom: '20px' }}>
+                                    <Card.Body>
+                                        <Card.Title style={{ fontSize: '18px', fontWeight: 'bold' }}>{card.service}</Card.Title>
+                                        <Card.Text style={{ fontSize: '14px' }}>{card.content}</Card.Text>
+                                        <Button onClick={() => handleModalOpen(card)} className="custom-button">자세히 보기</Button>
+                                    </Card.Body>
+                                </Card>
+                            </div>
+                        ))}
 
-                    <MyModal
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        card={currentCard}
-                    />
-                
+                        <MyModal
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                            card={currentCard}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Wrapper>
     );
 }
 

@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router";
 import "./Common.css";
 import "./MyInfo.css";
+import Wrapper from './components/Wrapper';
 
 function MyInfo() {
     const user_id = "01011112222"; 
@@ -109,50 +110,26 @@ function MyInfo() {
     };
 
     return (
-        <div>
-            <div className="backdrop">
-                <div className="upper2">
-                    <button className="upper2-button" onClick={handleBackClick}>←</button>
-                    내 정보
-                </div>
-                <div className="button-container">
-                    <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>일자리</button>
-                    <button className={`right-button ${view === "completed" ? "selected" : ""}`} onClick={handleClickCompleted}>혜택</button>
-                </div>
-                {view === "available" ? (
-                    <div>
-                        <h1>일자리</h1>
-                        {jobs.length > 0 ? (
-                            jobs.map(job => (
-                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={job.id}>
-                                    <Card.Body>
-                                        <Card.Title>{job.hire_title}</Card.Title>
-                                        <Card.Text>{job.hire_region}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleShowJob(job)}>
-                                            자세히 보기
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            ))
-                        ) : (
-                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
-                                    <Card.Body>
-                                        <Card.Title> 일자리 </Card.Title>
-                                        <Card.Text>가능한 일자리 내역이 없습니다.</Card.Text>
-                                    </Card.Body>
-                            </Card>
-                        )}
+        <Wrapper>
+            <div>
+                <div className="backdrop">
+                    <div className="upper2">
+                        <button className="upper2-button" onClick={handleBackClick}>←</button>
+                        내 정보
                     </div>
-                ) : (
-                    <div>
-                        <h1>혜택</h1>
+                    <div className="button-container">
+                        <button className={`left-button ${view === "available" ? "selected" : ""}`} onClick={handleClickAvailable}>혜택</button>
+                        <button className={`right-button ${view === "completed" ? "selected" : ""}`} onClick={handleClickCompleted}>일자리</button>
+                    </div>
+                    {view === "available" ? (
+                        <div style={{ paddingBottom: "5px" }}>
                         {benefit.length > 0 ? (
                             benefit.map(item => (
-                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={item.id}>
+                                <Card className="text-center" style={{ marginBottom: '20px' }} key={item.id}>
                                     <Card.Body>
-                                        <Card.Title>{item.service}</Card.Title>
-                                        <Card.Text>{item.content}</Card.Text>
-                                        <Button variant="primary" onClick={() => handleShowBenefit(item)}>
+                                        <Card.Title style={{ fontSize: '18px', fontWeight: 'bold' }}>{item.service}</Card.Title>
+                                        <Card.Text style={{ fontSize: '14px' }}>{item.content}</Card.Text>
+                                        <Button className="custom-button" onClick={() => handleShowBenefit(item)}>
                                             자세히 보기
                                         </Button>
                                     </Card.Body>
@@ -166,37 +143,61 @@ function MyInfo() {
                                     </Card.Body>
                             </Card>
                         )}
-                    </div>
-                )}
-                <Modal style={{fontFamily:'Pretendard-Regular'}} show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{modalInfo.service || modalInfo.hire_title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {
-                            modalType === "benefit" ?
-                            (<>
-                                <p>{modalInfo.content}</p>
-                                <p>대상: {modalInfo.target}</p>
-                                <p>방법: {modalInfo.how}</p>
-                            </>) :
-                            (<>
-                                <p>근무지역: {modalInfo.hire_region}</p>
-                                <p>근무요일: {modalInfo.work_day}</p>
-                                <p>복리후생: {modalInfo.work_benefits}</p>
-                                <p>접수방법: {modalInfo.submit_type}</p>
-                                <p>담당자: {modalInfo.officer_name}</p>
-                            </>)
-                        }
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            닫기
-                        </Button>
-                    </Modal.Footer>
-                </Modal> 
+                        </div>
+                    ) : (
+                        <div style={{ paddingBottom: "5px" }}>
+                            {jobs.length > 0 ? (
+                                jobs.map(job => (
+                                    <Card className="text-center" style={{ marginBottom: '20px' }} key={job.id}>
+                                        <Card.Body>
+                                            <Card.Title style={{ fontSize: '18px', fontWeight: 'bold' }}>{job.hire_title}</Card.Title>
+                                            <Card.Text style={{ fontSize: '14px' }}>{job.hire_region}</Card.Text>
+                                            <Button className="custom-button" onClick={() => handleShowJob(job)}>
+                                                자세히 보기
+                                            </Button>
+                                        </Card.Body>
+                                    </Card>
+                                ))
+                            ) : (
+                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                        <Card.Body>
+                                            <Card.Title> 일자리 </Card.Title>
+                                            <Card.Text>가능한 일자리 내역이 없습니다.</Card.Text>
+                                        </Card.Body>
+                                </Card>
+                            )}
+                        </div>
+                    )}
+                    <Modal style={{fontFamily:'Pretendard-Regular'}} show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title style={{ fontSize: '23px', fontWeight: 'bold' }}>{modalInfo.service || modalInfo.hire_title}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {
+                                modalType === "benefit" ?
+                                (<>
+                                    <p>{modalInfo.content}</p>
+                                    <div style={{ marginBottom: '5px' }}><b>대상</b>: {modalInfo.target}<br/></div>
+                                    <div style={{ marginBottom: '5px' }}><b>방법</b>: {modalInfo.how}<br/></div>
+                                </>) :
+                                (<>
+                                    <div style={{ marginBottom: '5px' }}><b>근무지역</b>: {modalInfo.hire_region}<br/></div>
+                                    <div style={{ marginBottom: '5px' }}><b>근무요일</b>: {modalInfo.work_day}<br/></div>
+                                    <div style={{ marginBottom: '5px' }}><b>복리후생</b>: {modalInfo.work_benefits}<br/></div>
+                                    <div style={{ marginBottom: '5px' }}><b>접수방법</b>: {modalInfo.submit_type}<br/></div>
+                                    <div style={{ marginBottom: '5px' }}><b>담당자</b>: {modalInfo.officer_name}<br/></div>
+                                </>)
+                            }
+                        </Modal.Body>
+                        <Modal.Footer style={{ justifyContent: 'center' }}>
+                            <Button className="custom-button" onClick={handleClose}>
+                                닫기
+                            </Button>
+                        </Modal.Footer>
+                    </Modal> 
+                </div>
             </div>
-        </div>
+        </Wrapper>
     )
 }
 

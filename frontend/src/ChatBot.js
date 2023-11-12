@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import avatarImage from './image/hopeAI.png'; //나중에 캐릭터이미지 불러올거임 ㅋㅋ
-import userImage from './image/chanho.jpg';
+import userImage from './image/profile.jpg';
 import "./Common.css";
-import "./ChatBot.css";
+import "./ChatBot.css";import { motion } from "framer-motion";
+import Wrapper from './components/Wrapper';
 
 import {
     Loader,
@@ -78,7 +79,7 @@ function ChatBot() {
                     const newMessages = [];
 
                     const newMessage = {
-                        message: "고객님을 위한 "+ result.answer.length +"개의 지원금이 있네요!", 
+                        message: "회원님을 위한 "+ result.answer.length +"개의 지원금이 있네요!", 
                         sentTime: "just now",
                         sender: "희망이",
                         direction: "incoming",
@@ -91,8 +92,8 @@ function ChatBot() {
                     for (let i = startNumber; i < endNumber; i++) {
                         var partdata = result.answer[i].info;
 
-                        const messageContent = partdata.service + "을 알아 보시는 것은 어떨까요?\n" +
-                            partdata.service  + "은(는) " + partdata.content + "\n" + partdata.target + "\n" + partdata.how;
+                        const messageContent = partdata.service + "을 알아 보시는 것은 어떨까요?\n\n" +
+                            partdata.service  + "은(는) " + partdata.content + "\n\n" + partdata.target + "\n\n" + partdata.how;
 
                         const newMessage = {
                             message: messageContent,
@@ -118,7 +119,7 @@ function ChatBot() {
                     const newMessages = [];
 
                     const newMessage = {
-                        message: "고객님께 추천드릴 "+ result.answer.length +"개의 채용 정보가 있네요!", 
+                        message: "회원님께 추천드릴 "+ result.answer.length +"개의 채용 정보가 있네요!", 
                         sentTime: "just now",
                         sender: "희망이",
                         direction: "incoming",
@@ -170,22 +171,17 @@ function ChatBot() {
 
                 console.error("error:", error);
             });
-        
-        
-        
     }
 
-
     return (
+        <Wrapper>
         <div>
             <div className="upper2">
                 <button className="upper2-button" onClick={handleBackClick}>←</button>
                 chat
             </div>
 
-
-
-            <div className="background">
+            <div className="bg">
                 <div style={{ position: "relative", height: "500px" }}>
                 <MainContainer className="chat-container">
                     <ChatContainer>
@@ -205,7 +201,7 @@ function ChatBot() {
                         message: "궁금한 게 있으면 무엇이든 말씀해 주세요!"
                         }} />
                             <Message model={{
-                        message: "예시 -     "
+                        message: "예시) 지금 받을 수 있는 지원금은 뭐가 있어?"
                         }} />
                         </MessageGroup.Messages>
                         <MessageGroup.Footer>희망이</MessageGroup.Footer>
@@ -232,12 +228,13 @@ function ChatBot() {
 
 
                     </MessageList>
-                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="Type message here" attachButton={false}/>                 
+                    <MessageInput value={inputValue} onChange={handleInputChange} onSend={handleSendClick} placeholder="궁금한 거 물어보세요!" attachButton={false}/>                 
                     </ChatContainer>
                 </MainContainer>
                 </div>
             </div>
         </div>
+        </Wrapper>
     )
 }
 

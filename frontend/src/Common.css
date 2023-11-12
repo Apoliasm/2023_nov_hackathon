@@ -73,3 +73,8 @@ img {
     transform: translateY(-50%);  /* 버튼을 수직 가운데에 위치시킴 */
     margin-left: 15px;
 }
+
+.formDatas{
+    margin: 25px;
+    padding-bottom: 25px;
+}
