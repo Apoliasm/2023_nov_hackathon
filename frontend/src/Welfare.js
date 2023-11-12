@@ -2,17 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import "./Common.css";
+import MapSearchBar from './MapSearchBar';
 
 const { kakao } = window;
 
 function Welfare() {
     const navigate = useNavigate();
     const [locations, setLocations] = useState([]);
+    const [search, setSearch] = useState("");
 
     const handleBackClick = () => {
         navigate('/');
     };
 
+    const onChange = (e) => {
+        setSearch(e.target.value);
+    };
+
+    const onClick = () => {
+        // 이 함수에서 원하는 동작을 수행하세요.
+        
+    };
     useEffect(() => {
         const container = document.getElementById('map');
         const options = {
@@ -73,7 +83,9 @@ function Welfare() {
                     <button className="upper2-button" onClick={handleBackClick}>←</button>
                     복지관
                 </div>
-                <div>검색창 올부분</div>
+                <div>
+                    <MapSearchBar search={search} onChange={onChange} onClick={onClick}/>
+                </div>
                 <div id="map" style={{
                     borderRadius:'25px',
                     width: '100%',
