@@ -1,0 +1,36 @@
+div {
+    border-radius: 25px;
+}
+
+.overlay{
+    overflow:auto;
+    padding-bottom: 20px;
+}
+
+.title{
+    text-align : center;
+    font-weight: bold;
+    background-color: #FFE566;
+    padding: 7px 30px 7px 20px;
+    border-radius: 25px 25px 0px 0px;
+    white-space: nowrap
+}
+
+.address{
+    padding: 12px 12px 5px 12px;
+    font-size: 13px;
+    white-space: nowrap
+}
+
+.tel{
+    padding: 5px 12px 12px 12px;
+    font-size: 15px;
+    white-space: nowrap
+}
+
+.close{
+    position: absolute;
+    right: 15px;
+    top: 2px;
+    cursor: pointer;
+}
