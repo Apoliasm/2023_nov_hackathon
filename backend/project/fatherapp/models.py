@@ -5,7 +5,6 @@ from django.db import models
 class User(models.Model):
     name = models.CharField(max_length=20,null=False)
     user_id = models.CharField(max_length=20,null=False,primary_key=True)
-    
     def __str__(self) -> str:
         return self.user_id
 
@@ -23,20 +22,23 @@ class Qualified(models.Model):
     def __str__(self) -> str:
         return "{}_{}".format(self.user_id,str(self.num))
 class Resume(models.Model):
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     resume_num = models.IntegerField(null=False,default=-1)
     workspace = models.CharField(max_length=30)
     months_period = models.IntegerField()
+    stmt = models.TextField(default='')
+    
+    
     def __str__(self) -> str:
         return "{}_{}".format(self.user_id,str(self.resume_num))
     
-class Statement(models.Model):
-    user_id = models.OneToOneField(User,on_delete=models.CASCADE,null=False,)
-    statement_num = models.IntegerField(null=False,default=-1)
-    title = models.CharField(max_length=30) 
-    content = models.TextField(max_length=500)
-    def __str__(self) -> str:
-        return "{}_{}".format(self.user_id,str(self.statement_num))
+# class Statement(models.Model):
+#     user_id = models.OneToOneField(User,on_delete=models.CASCADE,null=False,)
+#     statement_num = models.IntegerField(null=False,default=-1)
+#     title = models.CharField(max_length=30) 
+#     content = models.TextField(max_length=500)
+#     def __str__(self) -> str:
+#         return "{}_{}".format(self.user_id,str(self.statement_num))
 
 class Location(models.Model):
     name = models.CharField(max_length=30,default='default')
@@ -49,7 +51,7 @@ class Location(models.Model):
         return self.name
 class Benefit(models.Model):
     # 'type','service','content','target','how'
-    user_id = models.ManyToManyField(User,null=True,)
+    user_id = models.ManyToManyField(User,null=True,related_name='benefits')
     type = models.CharField(max_length=30)
     service = models.CharField(max_length=200)
     content = models.CharField(max_length=200)
@@ -60,7 +62,7 @@ class Benefit(models.Model):
         return self.service
 
 class Hire(models.Model):
-    user_id = models.ManyToManyField(User,null=True)
+    user_id = models.ManyToManyField(User,null=True,related_name='hires')
     # hire_id = models.CharField(max_length=20,default='')
     hire_title = models.CharField(max_length=50,default="")
     qualified_apply = models.CharField(max_length=20)
