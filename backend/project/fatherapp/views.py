@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from rest_framework import serializers
 from rest_framework.views import APIView
-from rest_framework import request
+from rest_framework.request import Request
 from rest_framework.response import Response
+from django.core import serializers as serializerss
 from .models import *
 import pandas as pd
 import json
 from .serializer import *
+import os,sys
+p = os.path.abspath('..')
+sys.path.insert(1,p)
+from ai.welfare_hire_model import *
 # Create your views here.
 
 class basicview(APIView):
@@ -140,3 +144,53 @@ class locationView(APIView):
         location_all = Location.objects.all()
         loc_serial = LocationSerializer(location_all,many=True)
         return Response(loc_serial.data)
+
+class chatView(APIView):
+    def get(self,request):
+        return Response({"get":"success"})
+    def post(self,request:Request):
+        post_content = request.data.get('question')
+        # print(post_content)
+        answer = welfare_hire_model(post_content)
+        # print(answer)
+        answer = answer.replace('<distinction: ','')
+        answer = answer.replace(', id: ','|')
+        answer = answer.replace('>','')
+        splited = answer.split('|')
+        ans_json = {}
+        if len(splited) == 1:
+            ans_json['answer'] = [splited[0]]
+            return Response(ans_json)
+        print(splited)
+        modelsth = models.Model
+        if splited[0] == '채용, 구인구직, 일' :
+            modelsth = Hire
+        elif splited[0] == '혜택, 복지, 지원금' :
+            modelsth = Welfare
+        
+        idlist = splited[1].replace('[','').replace(']','').replace(', ','|')
+        splited1 = idlist.split('|')
+        print(splited1)
+        
+        jsonlist = []
+        for split_id in splited1:
+            getfromdb = modelsth.objects.filter(id = split_id)
+            filter_first = getfromdb.first()
+            get_json = {}
+            if modelsth == Hire:
+                get_json["type"] = "hire"
+                serialed = HireSerializer(filter_first).data
+            elif modelsth == Welfare:
+                get_json["type"] = "welfare"
+                serialed = WelfareSerializer(filter_first).data
+            get_json[filter_first.__str__()] = serialed
+            jsonlist.append(get_json)
+        ans_json['answer'] = jsonlist
+        
+        return Response(ans_json)
+class resumeView(APIView):
+    def post(self,request:Request):
+        post_resume = request.data.get()
+        
+        
+        

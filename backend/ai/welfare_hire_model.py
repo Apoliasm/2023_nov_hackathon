@@ -7,14 +7,21 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 from langchain.chains import LLMChain
-
+import os
 # api key 필요
-OPENAI_API_KEY = ''
+OPENAI_API_KEY = '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'
 
 # FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-db = FAISS.load_local('./faiss/', embeddings, 'faiss')
 
+#실행 위치에 따른 경로 설정
+
+if os.getcwd().split('/').pop() == 'project' or os.getcwd().split('\\').pop() == 'project':
+    db = FAISS.load_local('../ai/faiss/', embeddings, 'faiss')
+elif os.getcwd().split('/').pop() == 'ai' or os.getcwd().split('\\').pop() == 'ai':
+    db = FAISS.load_local('./faiss/', embeddings, 'faiss')
+else:
+    print(os.getcwd())
 query = 'target: 24 '  # 만 24세 기준
 retrieved_pages = db.similarity_search_with_relevance_scores(query, k=20)  # 유사도 상위 20개
 retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
@@ -47,7 +54,10 @@ def welfare_hire_model(question):
     question = question.replace('일', '일자리')
     question = question.replace('중증', '심한')
     question = question.replace('경증', '심하지 않은')
-    query = "만 24세 이상인 심하지 않은 장애인," + question
+    question = question.replace('내가', '')
+    question = question.replace('지금', '')
+    question = question.replace('혜택', '복지')
+    query = "만 24세 이상인 심하지 않은 장애인 기준, " + question
     response = chain.run(question=query, docs=retrieved_contents)
     response = response.replace("\n", "")
 

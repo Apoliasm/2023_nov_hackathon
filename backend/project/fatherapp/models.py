@@ -87,5 +87,5 @@ class Hire(models.Model):
     officer_email = models.CharField(max_length=25,default="@")
     
     def __str__(self) -> str:
-        return "{}_{}".format(self.user_id,self.hire_title)
+        return self.hire_title
 

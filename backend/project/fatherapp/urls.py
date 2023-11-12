@@ -9,5 +9,6 @@ urlpatterns = [
     # path('savewel',views.saveWelfare.as_view(),name='savewel'),
     path('welfare',views.welfareView.as_view(),name='welfare'),
     path('hire',views.hireView.as_view(),name='hire'),
-    path('location',views.locationView.as_view(),name='location')
+    path('location',views.locationView.as_view(),name='location'),
+    path('chat',views.chatView.as_view(),name='chat'),
 ]
