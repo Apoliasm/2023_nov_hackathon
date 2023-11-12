@@ -15,7 +15,7 @@
 
 ## 4. 프로젝트에 활용된 기술 🔧
  
- #### ⦁ Frontend
+ ### ⦁ Frontend
   #### React와 Chat-UI-Kit 라이브러리를 사용한 챗봇 인터페이스를 구축했습니다.
   서버에서 응답을 받으면, 챗봇의 답변을 메시지 배열에 추가합니다.
   <br/>이벤트 핸들러 함수로 handleInputChange 함수와 handleSendClick 함수를 사용했습니다.
@@ -28,7 +28,7 @@
   <br/>3)구성된 메시지 배열을 MessageList 컴포넌트에서 순회하며 각 메시지에 대한 Message 컴포넌트를 생성하여 보여줍니다.
   <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/8a1810f1-b6ab-43d0-8cd6-92006c014418" width="375px" height = "812px" />
   <br/>구현이후 페이지는 다음과 같습니다.
- #### ⦁ Backend
+ ### ⦁ Backend
   #### Django Framework를 통한 REST API를 설계했습니다.
   <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/3fc1abfd-bd27-4435-9818-60ff2c01994b" width="750px" height = "1200px" />
   </br>
@@ -42,7 +42,7 @@
   또한 파이썬 기반의 API를 이용해 생성형 AI 활용으로 확장했습니다. <br/> 
   ai/apply_model.py, benefit_job_model.py등의 모듈을 이용해 사용자의 질문 등에 따라 생성형ai의 상호작용을 도왔습니다. <br/> 
   
- #### ⦁ AI
+ ### ⦁ AI
   
 ## 5. 시연영상 💻
 
