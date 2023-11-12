@@ -8,6 +8,8 @@ from langchain.prompts.chat import (
 )
 from langchain.chains import LLMChain
 
+OPENAI_API_KEY = "";
+
 # FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 db = FAISS.load_local('./faiss/', embeddings, 'faiss')
