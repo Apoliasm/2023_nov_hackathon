@@ -3,9 +3,10 @@ import { useNavigate } from "react-router";
 import axios from 'axios';
 import "./Common.css";
 import "./benefit.css"
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 function ApplyPage() {
     const navigate = useNavigate();
@@ -57,35 +58,41 @@ function ApplyPage() {
                         <Form.Control type="id" placeholder="아이디를 입력하세요" onChange={e => setUserID(e.target.value)} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formWhereWork1">
-                        <Form.Label>일했던 곳 #1</Form.Label>
-                        <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork1(e.target.value)} />
-                    </Form.Group>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3" controlId="formWhereWork1">
+                            <Form.Label>일했던 곳 #1</Form.Label>
+                            <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork1(e.target.value)} />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formHowLongWork1">
-                        <Form.Label>일한 기간 #1</Form.Label>
-                        <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork1(e.target.value)} />
-                    </Form.Group>
+                        <Form.Group as={Col} className="mb-3" controlId="formHowLongWork1">
+                            <Form.Label>일한 기간 #1</Form.Label>
+                            <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork1(e.target.value)} />
+                        </Form.Group>
+                    </Form.Row>
 
-                    <Form.Group className="mb-3" controlId="formWhereWork2">
-                        <Form.Label>일했던 곳 #2</Form.Label>
-                        <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork2(e.target.value)} />
-                    </Form.Group>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3" controlId="formWhereWork2">
+                            <Form.Label>일했던 곳 #2</Form.Label>
+                            <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork2(e.target.value)} />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formHowLongWork2">
-                        <Form.Label>일한 기간 #2</Form.Label>
-                        <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork2(e.target.value)} />
-                    </Form.Group>
+                        <Form.Group as={Col} className="mb-3" controlId="formHowLongWork2">
+                            <Form.Label>일한 기간 #2</Form.Label>
+                            <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork2(e.target.value)} />
+                        </Form.Group>
+                    </Form.Row>
 
-                    <Form.Group className="mb-3" controlId="formWhereWork3">
-                        <Form.Label>일했던 곳 #3</Form.Label>
-                        <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork3(e.target.value)} />
-                    </Form.Group>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3" controlId="formWhereWork3">
+                            <Form.Label>일했던 곳 #3</Form.Label>
+                            <Form.Control type="string" placeholder="어디서 일하셨나요?" onChange={e => setWhereWork3(e.target.value)} />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formHowLongWork3">
-                        <Form.Label>일한 기간 #3</Form.Label>
-                        <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork3(e.target.value)} />
-                    </Form.Group>
+                        <Form.Group as={Col} className="mb-3" controlId="formHowLongWork3">
+                            <Form.Label>일한 기간 #3</Form.Label>
+                            <Form.Control type="string" placeholder="얼마나 일하셨나요?" onChange={e => setHowLongWork3(e.target.value)} />
+                        </Form.Group>
+                    </Form.Row>
 
                     <Form.Group className="mb-3" controlId="formSelfIntro">
                         <Form.Label>자기 소개란</Form.Label>
