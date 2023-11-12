@@ -28,6 +28,25 @@ function MyInfo() {
             })
             .catch(error => console.error('일자리정보를 불러오는데 실패했습니다.', error));
     }, []);
+    
+    const [compbenefit, setcompBenefit] = useState([]);
+    const [compjobs, setcompJobs] = useState([]);
+
+    useEffect(() => {
+        axios.get(`compbenefitURL`) // 신청완료한 혜택 GET해오는 URL
+            .then(response => {
+                setbenefit(response.data);
+            })
+            .catch(error => console.error('신청 완료한 혜택정보를 불러오는데 실패했습니다.',error));
+    }, []);
+    
+    useEffect(() => {
+        axios.get('compjobsURL') // 신청완료한 일자리 정보 GET해오는 URL
+            .then(response => {
+                setjobs(response.data);
+            })
+            .catch(error => console.error('신청 완료한 일자리정보를 불러오는데 실패했습니다.', error));
+    }, []);
     */
     // Modal 관련 상태
     const [show, setShow] = useState(false);
