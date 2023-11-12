@@ -10,6 +10,7 @@ import Jobs from "./Jobs";
 import JobDetails from "./JobDetails";
 import MyInfo from "./MyInfo";
 import ApplyPage from "./ApplyPage";
+import CallPage from "./CallPage";
 
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/job/:id" element={<JobDetails />} />  // 동적 route
           <Route path="/myinfo" element={<MyInfo />} />
-          <Route path="/applypage" element={<ApplyPage />} />
+          <Route path="/applypage/:id" element={<ApplyPage />} />
+          <Route path="/callpage/:id" element={<CallPage />} />
         </Routes>
       </Router>
     </div>
