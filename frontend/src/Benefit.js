@@ -100,7 +100,7 @@ function Benefit() {
         // 서버에서 데이터를 가져오는 함수
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/father/welfare');
+                const response = await axios.get('http://127.0.0.1:8000/father/benefit');
                 if (response.status === 200) {
                     setCards(response.data);  //cards 데이터에 저장하게 된다.
                 } else {

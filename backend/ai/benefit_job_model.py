@@ -7,14 +7,24 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 from langchain.chains import LLMChain
+import os
 
-# FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
-embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-db = FAISS.load_local('./faiss/', embeddings, 'faiss')
+OPENAI_API_KEY = ''
 
-query = 'target: 24 '  # 만 24세 기준
-retrieved_pages = db.similarity_search_with_relevance_scores(query, k=20)  # 유사도 상위 20개
-retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
+if OPENAI_API_KEY != '':
+    # FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
+    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+
+    if os.getcwd().split('/').pop() == 'project' or os.getcwd().split('\\').pop() == 'project':
+        db = FAISS.load_local('../ai/faiss/', embeddings, 'faiss')
+    elif os.getcwd().split('/').pop() == 'ai' or os.getcwd().split('\\').pop() == 'ai':
+        db = FAISS.load_local('./faiss/', embeddings, 'faiss')
+    else:
+        print(os.getcwd())
+
+    query = 'target: 24 '  # 만 24세 기준
+    retrieved_pages = db.similarity_search_with_relevance_scores(query, k=20)  # 유사도 상위 20개
+    retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
 
 
 def benefit_job_model(question):
@@ -62,4 +72,4 @@ def benefit_job_model(question):
 
 # 현재 사용자는 24세 심하지 않은(경증) 장애인이라고 가정
 # 테스트
-print(benefit_job_model("지원금 좀 알려줘"))
+# print(benefit_job_model("지원금 좀 알려줘"))
