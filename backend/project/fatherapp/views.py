@@ -140,4 +140,3 @@ class locationView(APIView):
         location_all = Location.objects.all()
         loc_serial = LocationSerializer(location_all,many=True)
         return Response(loc_serial.data)
-        
