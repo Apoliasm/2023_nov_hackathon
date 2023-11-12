@@ -29,5 +29,14 @@
 }
 
 h1 {
+    margin-left: 1vh;
     text-align:left;
+    font-family:'Pretendard-Regular';
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100% - (1.75rem * 2));
 }
