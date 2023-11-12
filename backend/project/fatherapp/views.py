@@ -8,6 +8,7 @@ import pandas as pd
 import json
 from .serializer import *
 import os,sys
+from rest_framework import status
 p = os.path.abspath('..')
 sys.path.insert(1,p)
 from ai.benefit_job_model import *
@@ -78,10 +79,12 @@ class saveBenefit(APIView):
     def get(self,request):
         with open("./fatherapp/benefits.csv",'r') as f:
             df = pd.read_csv(f)
+        # print(len(df))
         for lens in range(len(df)):
             benefits = df.loc[lens]
             cur_wel = Benefit(type=benefits['type'],service=benefits['service'],content=benefits['content'],target=benefits['target'],how=benefits['how'])
             cur_wel.save()
+            #print(cur_wel)
         return Response({"status":"success"})
         
 
@@ -91,6 +94,13 @@ class BenefitView(APIView):
         benefit_all = Benefit.objects.all()
         benefit_serial = BenefitSerializer(benefit_all,many=True)
         return Response(benefit_serial.data)
+    def post(self,request:Request): #####혜택 즐겨찾기 기능"####################3
+        user_id = request.data.get('user_id')
+        benefit_id = request.data.get('benefit_id')
+        benefit_id.benefits.add(User.objects.get(user_id=user_id))
+        return Response(status=status.HTTP_200_OK)
+        
+        
 class hireView(APIView):
     def get(self,request):
         hire_all = Hire.objects.all()
@@ -194,14 +204,66 @@ class resumeView(APIView):
         return Response({"status":"success"})
     def post(self,request:Request):
         post_resume = request.data.get('question')
-        print(post_resume)
+        #print(post_resume)
         title = request.data.get('title')
-        print(title)
+        #print(title)
         answer = apply_model(title,post_resume)
         ans_json = {}
         ans_json['answer'] = answer
         return Response(ans_json)
+class resumesaveView(APIView):
+    def post(self,request:Request):
+        ans_json = {}
+        post_resume = request.data.get('resume')
+        post_workspace = request.data.get('workspace')
+        post_periods = request.data.get('periods')
+        post_user_id = request.data.get('user_id')
+        hire_id = request.data.get('hire_id')
+        ans_json['resume'] = post_resume
+        ans_json['workspace'] = post_workspace
+        ans_json['periods'] = post_periods
+        ans_json['user_id'] = post_user_id
+        resume_count = Resume.objects.all().count()
+        user = User.objects.get(user_id = post_user_id)
+        #이력서 저장
+        resume = Resume(user_id=user,resume_num=resume_count,workspace=post_workspace,months_period=post_periods,stmt =post_resume)
+        resume.save()
+        #지원한 회사 저장
+        hire = Hire.objects.get(id =hire_id)
+        user.hires.add(hire)
+        user.save()
+        hire.save()
+        return Response(status=status.HTTP_200_OK)
+        
+
+class userView(APIView):
+    def post(self,request:Request):
+        post_id = request.data.get('user_id')
+        cur_user = User.objects.get(user_id = post_id)
+        ans_json = {}
+        liked = cur_user.hires.all()
+        benefits = cur_user.benefits.all()
+        hirelist = []
+        for hire in liked:
+            hire_s = HireSerializer(hire).data
+            hirelist.append(hire_s)
+        ans_json['hire'] = hirelist
+        benelist = []
+        for bene in benefits:
+            bene_s = BenefitSerializer(bene).data
+            benelist.append(bene_s)
+        ans_json['bene'] = benelist
+        #print(ans_json)
+        return Response(ans_json)
         
         
-        
-        
+class benefitaddView(APIView):
+    def post(self,request:Request):
+        post_id = request.data.get('user_id')
+        cur_user = User.objects.get(user_id = post_id)
+        bene_id = request.data.get('benefit_id')
+        cur_benefit = Benefit.objects.get(id=bene_id)
+        cur_user.benefits.add(cur_benefit)
+        cur_user.save()
+        cur_benefit.save()
+        return Response(status=status.HTTP_200_OK)
