@@ -13,6 +13,7 @@ function MyInfo() {
     // 서버 통신 관련
     const [benefit, setBenefit] = useState([]);
     const [jobs, setJobs] = useState([]);
+
     useEffect(() => {
         axios.get(`benefitURL`) // 혜택 GET해오는 URL
             .then(response => {
@@ -35,7 +36,7 @@ function MyInfo() {
     useEffect(() => {
         axios.get(`compbenefitURL`) // 신청완료한 혜택 GET해오는 URL
             .then(response => {
-                setbenefit(response.data);
+                setcompBenefit(response.data);
             })
             .catch(error => console.error('신청 완료한 혜택정보를 불러오는데 실패했습니다.',error));
     }, []);
@@ -43,7 +44,7 @@ function MyInfo() {
     useEffect(() => {
         axios.get('compjobsURL') // 신청완료한 일자리 정보 GET해오는 URL
             .then(response => {
-                setjobs(response.data);
+                setcompJobs(response.data);
             })
             .catch(error => console.error('신청 완료한 일자리정보를 불러오는데 실패했습니다.', error));
     }, []);
@@ -66,6 +67,8 @@ function MyInfo() {
     }
 
     const [view, setView] = useState("available");
+    const [compbenefit, setcompBenefit] = useState([]);
+    const [compjobs, setcompJobs] = useState([]);
     const [benefit, setbenefit]=useState([
         {"id": 1,
         "type": " 혜택, 복지, 지원금",
@@ -200,10 +203,12 @@ function MyInfo() {
                                 </Card>
                             ))
                         ) : (
-                            <div>
-                                <h1>혜택</h1>
-                                가능한 혜택이 없습니다.
-                            </div>
+                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                    <Card.Body>
+                                        <Card.Title> 혜택 </Card.Title>
+                                        <Card.Text>혜택이 없습니다.</Card.Text>
+                                    </Card.Body>
+                            </Card>
                         )}
                         <h1>일자리</h1>
                         {jobs.length > 0 ? (
@@ -219,20 +224,55 @@ function MyInfo() {
                                 </Card>
                             ))
                         ) : (
-                            <div>
-                                <h1>일자리</h1>
-                                내역 없음.
-                            </div>
+                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                    <Card.Body>
+                                        <Card.Title> 일자리 </Card.Title>
+                                        <Card.Text>가능한 일자리 내역이 없습니다.</Card.Text>
+                                    </Card.Body>
+                            </Card>
                         )}
                     </div>
                 ) : (
                     <div>
-                        {completedList.length > 0 ? (
-                            completedList.map(item => (
-                                <div key={item.id}>{item.name}</div>
+                        {compbenefit.length > 0 ? (
+                            compbenefit.map(item => (
+                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={item.id}>
+                                    <Card.Body>
+                                        <Card.Title>{item.service}</Card.Title>
+                                        <Card.Text>{item.content}</Card.Text>
+                                        <Button variant="primary" onClick={() => handleShowBenefit(item)}>
+                                            자세히 보기
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
                             ))
                         ) : (
-                            <div>완료한 신청이 없습니다.</div>
+                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                    <Card.Body>
+                                        <Card.Title> 혜택 </Card.Title>
+                                        <Card.Text>신청한 혜택이 없습니다.</Card.Text>
+                                    </Card.Body>
+                            </Card>
+                        )}
+                        {compjobs.length > 0 ? (
+                            compjobs.map(job => (
+                                <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }} key={job.id}>
+                                    <Card.Body>
+                                        <Card.Title>{job.hire_title}</Card.Title>
+                                        <Card.Text>{job.근무환경.근무지역}</Card.Text>
+                                        <Button variant="primary" onClick={() => handleShowJob(job)}>
+                                            자세히 보기
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
+                            ))
+                        ) : (
+                            <Card style={{ width: '100%', textAlign: 'center', fontFamily: 'Pretendard-Regular' }}>
+                                    <Card.Body>
+                                        <Card.Title> 일자리 </Card.Title>
+                                        <Card.Text>신청한 일자리가 없습니다.</Card.Text>
+                                    </Card.Body>
+                            </Card>
                         )}
                     </div>
                 )}
