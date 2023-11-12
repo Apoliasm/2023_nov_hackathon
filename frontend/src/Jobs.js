@@ -24,6 +24,9 @@
         navigate(`/applypage/${props.card.id}`);
     };
 
+    
+
+
     return (
       <Modal
         {...props}
@@ -32,20 +35,27 @@
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {props.card.title}
+          <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: '25px', fontWeight: 'bold' }}>
+            {props.card.hire_title}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <p>{props.card.title}</p> */}
-          {Array.isArray(props.card.description) ? (
-            props.card.description.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
+          {Array.isArray(props.card.근무조건) ? (
+            props.card.근무조건.map((근무, index) => (
+              <div key={index}>
+                <p><b>고용형태</b>: {근무.고용형태}</p>
+                <p><b>계약기간</b>: {근무.계약기간}</p>
+                <p><b>급여조건</b>: {근무.급여조건}</p>
+                <p><b>근무지역</b>: {근무.근무지역}</p>
+              </div>
             ))
           ) : (
-            <p>{props.card.description}</p>
+            Object.entries(props.card.근무조건).map(([key, value]) => (
+              <p key={key}><b>{key}</b>: {value}</p>
+            ))
           )}
         </Modal.Body>
+
         <Modal.Footer style={{ justifyContent: 'center' }}>
             <Button onClick={handleApplyButtonClick} className="custom-button">신청</Button>
         </Modal.Footer>
@@ -62,7 +72,7 @@
     const [search, setSearch] = useState("");
   
     useEffect(() => {
-      axios.get('/api/jobs')  // 백엔드 주소 입력하기!!.
+      axios.get('http://127.0.0.1:8000/father/hire')  // 백엔드 주소 입력하기!!.
         .then(response => {
           setJobs(response.data);
         })
@@ -71,18 +81,14 @@
         });
     }, []);
   
-    const [jobs, setJobs] = useState([
-      { id: '1', title: '풋락커코리아 매장 장애인 아르바이트 채용 (전지점 채용중)', description: 'Develop and maintain software' },
-      { id: '2', title: '에스앤에스 컴퍼니 직영 매장 토끼정 채용공고', description: 'Develop and maintain software' },
-      { id: '3', title: '[장애인/주3일] 백화점 매장 조리 및 판매서비스 장애인 직원 모집', description: 'Develop and maintain software' }
-    ]);
+    const [jobs, setJobs] = useState([]);
   
     const onChange = (e) => {
       setSearch(e.target.value);
     };
   
     const filteredJobs = search.trim() === "" ? jobs : jobs.filter((job) => {
-      return job.title.replace(" ", "").includes(search.toLocaleLowerCase().replace(" ", ""));
+      return job.hire_title.replace(" ", "").includes(search.toLocaleLowerCase().replace(" ", ""));
     });
   
     const [modalShow, setModalShow] = useState(false);
@@ -108,8 +114,19 @@
             {filteredJobs.map((card, index) => (
               <Card key={index} className="text-center" style={{ marginBottom: '20px' }}>
                 <Card.Body>
-                  <Card.Title>{card.title}</Card.Title>
-                  <Card.Text>{card.description}</Card.Text>
+                  <Card.Title style={{ fontSize: '20px', fontWeight: 'bold' }}>{card.hire_title}</Card.Title>
+                  
+                  <Card.Text>
+                    <div key={index} style={{ fontSize: '14px' }}>
+                      <p><b>학력사항</b>: {card.지원자격.학력사항} </p>
+                      <p><b>경력사항</b>: {card.지원자격.경력사항}</p>
+                      <p><b>장애인 채용</b>: {card.지원자격.장애인채용}</p>
+                      <p><b>우대사항</b>: {card.지원자격.우대사항}</p>
+                    </div>
+                  </Card.Text>
+
+
+                  
                   <Button onClick={() => handleModalOpen(card)} className="custom-button">자세히 보기</Button>
                 </Card.Body>
               </Card>
