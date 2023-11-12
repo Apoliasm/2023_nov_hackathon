@@ -47,7 +47,7 @@ class Location(models.Model):
     
     def __str__(self) -> str:
         return self.name
-class Welfare(models.Model):
+class Benefit(models.Model):
     # 'type','service','content','target','how'
     user_id = models.ManyToManyField(User,null=True,)
     type = models.CharField(max_length=30)
