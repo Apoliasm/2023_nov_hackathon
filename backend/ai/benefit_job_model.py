@@ -7,35 +7,25 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 from langchain.chains import LLMChain
-import os
-# api key 필요
-OPENAI_API_KEY = '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'
 
 # FAISS 불러오기(혜택, 일자리 텍스트를 임베딩한 벡터)
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+db = FAISS.load_local('./faiss/', embeddings, 'faiss')
 
-#실행 위치에 따른 경로 설정
-
-if os.getcwd().split('/').pop() == 'project' or os.getcwd().split('\\').pop() == 'project':
-    db = FAISS.load_local('../ai/faiss/', embeddings, 'faiss')
-elif os.getcwd().split('/').pop() == 'ai' or os.getcwd().split('\\').pop() == 'ai':
-    db = FAISS.load_local('./faiss/', embeddings, 'faiss')
-else:
-    print(os.getcwd())
 query = 'target: 24 '  # 만 24세 기준
 retrieved_pages = db.similarity_search_with_relevance_scores(query, k=20)  # 유사도 상위 20개
 retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
 
 
-def welfare_hire_model(question):
-    chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.1, openai_api_key=OPENAI_API_KEY)
+def benefit_job_model(question):
+    chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=OPENAI_API_KEY)
 
     # 답변 형식
     system_template = """
     당신은 질문에 맞게 target: 과 distinction: 과 '이상', '미만', '심한', '심하지 않는'을 잘 구별하여 id: 를 답해야 됩니다.
     질문에서 '중증' 단어는 '심한'으로, '경증' 단어는 '심하지 않은'으로 해석해야 합니다.
-    {docs} 내용만으로 대답해야 되고, id: 는 여러개일 수도 있으며, 만약 정보가 부족하면 "해당되는 정보가 없습니다."라고 출력해야 되고,
-    그렇지 않다면 반드시 <distinction: ?, id: [?, ?, ?, ...]> 형식만을 출력해야 됩니다.
+    {docs} 내용만으로 대답해야 되고, id: 는 여러개일 수도 있으며, 적절한 id가 있다면 반드시 <distinction: ?, id: [?, ?, ?, ...]> 형식만을 출력해야되고,
+    그렇지 않다면 "해당되는 정보가 없습니다."라고 출력해야 됩니다.
     """
     system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
 
@@ -51,22 +41,25 @@ def welfare_hire_model(question):
     chain = LLMChain(llm=chat, prompt=chat_prompt)
 
     # 질문 및 답변
+    question = question.replace('혜택', '복지')
     question = question.replace('일', '일자리')
     question = question.replace('중증', '심한')
     question = question.replace('경증', '심하지 않은')
     question = question.replace('내가', '')
     question = question.replace('지금', '')
-    question = question.replace('혜택', '복지')
     query = "만 24세 이상인 심하지 않은 장애인 기준, " + question
-    response = chain.run(question=query, docs=retrieved_contents)
-    response = response.replace("\n", "")
+    response = chain.run(docs=retrieved_contents, question=query)
+    response = response.replace('\n', '')
 
     # 추가적인 예외 처리
-    if response[-1] != '>' or response[response.find('>') - 1] == '.':
+    if response[0] == '<':
+        response = response[:response.index('>') + 1]
+    if response[response.find('>') - 1] == '.':
         response = "해당되는 정보를 찾을 수 없습니다."
+
     return response
 
 
 # 현재 사용자는 24세 심하지 않은(경증) 장애인이라고 가정
 # 테스트
-# print(welfare_hire_model("내가 할 수 있는 일이 뭘까"))
+print(benefit_job_model("지원금 좀 알려줘"))

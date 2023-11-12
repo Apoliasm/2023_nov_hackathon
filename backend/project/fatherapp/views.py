@@ -10,7 +10,7 @@ from .serializer import *
 import os,sys
 p = os.path.abspath('..')
 sys.path.insert(1,p)
-from ai.welfare_hire_model import *
+from ai.benefit_job_model import *
 # Create your views here.
 
 class basicview(APIView):
@@ -73,23 +73,23 @@ class saveHireView(APIView):
             hire.save()
         return Response({"status":"success"})
             
-class saveWelfare(APIView):
+class saveBenefit(APIView):
     def get(self,request):
-        with open("./fatherapp/welfares.csv",'r') as f:
+        with open("./fatherapp/benefits.csv",'r') as f:
             df = pd.read_csv(f)
         for lens in range(len(df)):
-            welfares = df.loc[lens]
-            cur_wel = Welfare(type=welfares['type'],service=welfares['service'],content=welfares['content'],target=welfares['target'],how=welfares['how'])
+            benefits = df.loc[lens]
+            cur_wel = benefits(type=benefits['type'],service=benefits['service'],content=benefits['content'],target=benefits['target'],how=benefits['how'])
             cur_wel.save()
         return Response({"status":"success"})
         
 
-class welfareView(APIView):
+class BenefitView(APIView):
     #first view
     def get(self,request):
-        welfare_all = Welfare.objects.all()
-        welfare_serial = WelfareSerializer(welfare_all,many=True)
-        return Response(welfare_serial.data)
+        benefit_all = Benefit.objects.all()
+        benefit_serial = BenefitSerializer(benefit_all,many=True)
+        return Response(benefit_serial.data)
 class hireView(APIView):
     def get(self,request):
         hire_all = Hire.objects.all()
@@ -151,7 +151,7 @@ class chatView(APIView):
     def post(self,request:Request):
         post_content = request.data.get('question')
         # print(post_content)
-        answer = welfare_hire_model(post_content)
+        answer = benefit_job_model(post_content)
         # print(answer)
         answer = answer.replace('<distinction: ','')
         answer = answer.replace(', id: ','|')
@@ -166,7 +166,7 @@ class chatView(APIView):
         if splited[0] == '채용, 구인구직, 일' :
             modelsth = Hire
         elif splited[0] == '혜택, 복지, 지원금' :
-            modelsth = Welfare
+            modelsth = Benefit
         
         idlist = splited[1].replace('[','').replace(']','').replace(', ','|')
         splited1 = idlist.split('|')
@@ -180,9 +180,9 @@ class chatView(APIView):
             if modelsth == Hire:
                 get_json["type"] = "hire"
                 serialed = HireSerializer(filter_first).data
-            elif modelsth == Welfare:
+            elif modelsth == Benefit:
                 get_json["type"] = "welfare"
-                serialed = WelfareSerializer(filter_first).data
+                serialed = BenefitSerializer(filter_first).data
             get_json[filter_first.__str__()] = serialed
             jsonlist.append(get_json)
         ans_json['answer'] = jsonlist

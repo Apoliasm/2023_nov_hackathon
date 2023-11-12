@@ -10,9 +10,9 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = '__all__'
         
-class WelfareSerializer(serializers.ModelSerializer):
+class BenefitSerializer(serializers.ModelSerializer):
     class Meta :
-        model = Welfare
+        model = Benefit
         fields = '__all__'
         
 class HireSerializer(serializers.ModelSerializer):
