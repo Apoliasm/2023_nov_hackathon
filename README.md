@@ -1,6 +1,9 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=2023_nov_hackathon&fontSize=70" />
+
 ## 1. 팀명
+
 2023 대구를 빛내는 해커톤 8조 : "희망이 아빠"
+
 ## 2. 제출 타입 및 주제
 
 ## 3. 프로젝트 한 줄 소개 💻
