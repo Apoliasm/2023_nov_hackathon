@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import axios from 'axios';
 import "./Common.css";
 import "./MyInfo.css";
 import Card from 'react-bootstrap/Card';
@@ -8,6 +9,26 @@ import Button from 'react-bootstrap/Button';
 
 function MyInfo() {
     const user_info = '3'; //3급 장애인을 key로 설정. 서버로 GET요청을 보낸다.
+    /* test시 주석 삭제. 아래 더미데이터 삭제.
+    // 서버 통신 관련
+    const [benefit, setBenefit] = useState([]);
+    const [jobs, setJobs] = useState([]);
+    useEffect(() => {
+        axios.get(`benefitURL`) // 혜택 GET해오는 URL
+            .then(response => {
+                setbenefit(response.data);
+            })
+            .catch(error => console.error('혜택정보를 불러오는데 실패했습니다.',error));
+    }, []);
+    
+    useEffect(() => {
+        axios.get('jobsURL') // 일자리 정보 GET해오는 URL
+            .then(response => {
+                setjobs(response.data);
+            })
+            .catch(error => console.error('일자리정보를 불러오는데 실패했습니다.', error));
+    }, []);
+    */
     // Modal 관련 상태
     const [show, setShow] = useState(false);
     const [modalInfo, setModalInfo] = useState({});
