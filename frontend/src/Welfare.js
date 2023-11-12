@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import "./Common.css";
+import './Welfare.css';
 
 const { kakao } = window;
 
@@ -17,7 +18,7 @@ function Welfare() {
         const container = document.getElementById('map');
         const options = {
             center: new kakao.maps.LatLng(35.888039, 128.611373),
-            level: 3
+            level: 5
         };
         const map = new kakao.maps.Map(container, options);
 
@@ -32,19 +33,12 @@ function Welfare() {
                     marker.setMap(map);
 
                     let iwContent = 
-                        `<div style="padding:5px;">
-                            이름: ${name}<br>
-                            주소: ${address}
-                        </div>`;
-                    
-                    if (tel != "nan") {
-                        iwContent = 
-                        `<div style="padding:5px;">
-                            이름: ${name}<br>
-                            전화번호: ${tel}<br>
-                            주소: ${address}
-                        </div>`;
-                    }
+                    `<div class="overlay">
+                        <div class="close"}>×</div>
+                        <div class="title">${name}</div>
+                        <div class="address">${address}</div>`+
+                        (tel != "nan" ? `<div class="tel">${tel}</div>`:``)
+                    +`</div>`;
 
                     const iwPosition = markerPosition; 
                     
@@ -76,7 +70,7 @@ function Welfare() {
                 <div>검색창 올부분</div>
                 <div id="map" style={{
                     borderRadius:'25px',
-                    width: '100%',
+                    margin: '15px',
                     height: '70vh'
                 }}></div>
             </div>
