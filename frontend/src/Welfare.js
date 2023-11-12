@@ -48,7 +48,7 @@ function Welfare() {
                         <div class="close"}>×</div>
                         <div class="title">${name}</div>
                         <div class="address">${address}</div>`+
-                        (tel != "nan" ? `<div class="tel">${tel}</div>`:``)
+                        (tel !== "nan" ? `<div class="tel">${tel}</div>`:``)
                     +`</div>`;
 
                     const iwPosition = markerPosition; 

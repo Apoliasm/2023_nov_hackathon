@@ -90,9 +90,8 @@
 }
 .slick-slide img
 {
-    margin-top: 5vh;
+    margin-top: 7vh;
     object-fit: cover;
-    max-height: 100%;
     width: 53vh;
     display: block;
 }
