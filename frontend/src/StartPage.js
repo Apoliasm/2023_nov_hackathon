@@ -34,7 +34,7 @@ function StartPage() {
 
     return (
         <div>
-            <div className="backdrop">
+            <div className="background">
                     <img src={bannerBg} style={{ width: "100%", height: "417px"}}/>
                     <div class="bannerdiv">
                         <Banner/>

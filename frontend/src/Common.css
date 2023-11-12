@@ -19,8 +19,7 @@ img {
     object-fit:cover;
 }
 
-.backdrop { 
-    overflow: hidden;
+.backdrop {
     position: relative;
     z-index: 0;
     background-color: #F8F8F8F8;
