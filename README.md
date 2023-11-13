@@ -200,7 +200,7 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
     retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
 ```
 <br/>4) 위에서 만든 벡터 데이터와 함께 chat 모델을 정의하고 사용합니다.
-```
+```python
     from langchain.chat_models import ChatOpenAI
     from langchain.prompts.chat import (
         ChatPromptTemplate,
