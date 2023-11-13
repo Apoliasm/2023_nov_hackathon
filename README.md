@@ -244,7 +244,7 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
   
 ## 5. 시연영상 💻
 
- #### [Youtube](https://youtu.be/VHYGwGR2M84)<br/><br/><br/>
+ #### [Youtube](https://youtu.be/yI74hLcINc8)<br/><br/><br/>
 
 ## 6. 팀원 👨‍👨‍👧‍👦
 컴퓨터학부<br/>
