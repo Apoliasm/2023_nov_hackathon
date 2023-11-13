@@ -96,7 +96,43 @@
   
 ### ⦁ Backend
 #### Django Framework를 통한 REST API를 설계하였습니다.
-<img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/3fc1abfd-bd27-4435-9818-60ff2c01994b" width="375px" height = "650px" /></br>
+```
+backend
++---ai
+|   |   apply_model.py
+|   |   benefit_job_model.py
+|   |
+|   \---faiss
+|           faiss.faiss
+|           faiss.pkl
+|
+\---project
+    |   db.sqlite3
+    |   manage.py
+    |
+    +---fatherapp
+    |   |   admin.py
+    |   |   apps.py
+    |   |   hire_json.json
+    |   |   models.py
+    |   |   serializer.py
+    |   |   tests.py
+    |   |   urls.py
+    |   |   views.py
+    |   |   __init__.py
+    |   |
+    |   \---migrations
+    |           0001_initial.py
+    |           __init__.py
+    |
+    \---project
+            asgi.py
+            settings.py
+            urls.py
+            wsgi.py
+            __init__.py
+
+```
 manage.py를 통해 Django Framework의 서버 실행 및 전반적인 관리를 수행하였습니다.<br/>
 
 
