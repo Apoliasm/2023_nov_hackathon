@@ -96,7 +96,7 @@
   
 ### ⦁ Backend
 #### Django Framework를 통한 REST API를 설계하였습니다.
-```
+```bash
 backend
 +---ai
 |   |   apply_model.py
