@@ -167,10 +167,32 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
 
   
 <br/>2) openAI에서 제공하는 기능을 통해 데이터를 벡터 임베딩하여 DB에 저장하였습니다.
-
-<img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/95912522/e8b9fad6-9dbf-4f9a-b1b2-0e04fc0231d6" width="700px" height = "550px" />
-
-
+```python
+    from langchain.text_splitter import REcursiveCharacterTextSplitter, CharacterTextSplitter
+    
+    t1 = open('test.txt', '\', encoding= 'utf-8')
+    pages = []
+    for i in range(1, 82):
+        temp = ""
+        with open('./pages/' + str[i] + '.txt') as f:
+            lines = f.readlines()
+            text_splitter = REcursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+            for line in lines:
+                if line.split(': ')[0] == '대상':
+                    temp = ("id: " + str[i] + "//distinction: 혜택, 복지, 지원금//target: " + line[4:])
+                    #print(temp)
+                    texts = text_splitter.split_text(temp)
+                    pages.append(text_splitter.create_documents(texts)[0])
+                    f1.wrtie(temp)
+    
+    print(pages)
+    print(len(pages))
+    print(pages[78].page_content)
+    
+    embeddings = OpenAIEmbeddings(openai_api_key = "APP KEY")
+    db = FAISS.from_documents(pages, embeddings)
+    db.save_local('./','faiss')
+```
 <br/>3) 사용자의 특성에 맞는 데이터를 뽑습니다. (ex) 24세 심하지 않은 장애)
 ```python
     query = 'target: 24 '  # 만 24세 기준
@@ -178,8 +200,46 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
     retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
 ```
 <br/>4) 위에서 만든 벡터 데이터와 함께 chat 모델을 정의하고 사용합니다.
-<img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/95912522/7fc77a6a-5c57-4ebd-b498-4a3d171e75e8" width="700px" height = "440px" />
+```
+    from langchain.chat_models import ChatOpenAI
+    from langchain.prompts.chat import (
+        ChatPromptTemplate,
+        SystemMessagePromptTemplate,
+        HumanMessagePromptTemplate,
+    )
 
+    chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=OPENAI_API_KEY)
+    
+        # 답변 형식
+    system_template = """
+    당신은 질문에 맞게 target: 과 distinction: 과 '이상', '미만', '심한', '심하지 않는'을 잘 구별하여 id: 를 답해야 됩니다.
+    질문에서 '중증' 단어는 '심한'으로, '경증' 단어는 '심하지 않은'으로 해석해야 합니다.
+    {docs} 내용만으로 대답해야 되고, id: 는 여러개일 수도 있으며, 적절한 id가 있다면 반드시 <distinction: ?, id: [?, ?, ?, ...]> 형식만을 출력해야되고,
+    그렇지 않다면 "해당되는 정보가 없습니다."라고 출력해야 됩니다.
+    """
+    system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
+    
+    # 질문 형식
+    human_template = "Answer the following question: {question}"
+    human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
+    
+    chat_prompt = ChatPromptTemplate.from_messages(
+        [system_message_prompt, human_message_prompt]
+    )
+    
+    from langchain.chains import LLMChain
+    
+    chain = LLMChain(llm=chat, prompt=chat_prompt)
+    query = "24세 이상인 심하지 않은 장애인이 받을 수 있는 복지는 뭐가 있지?"
+    
+    response = chain.run(question=query, docs=retrieved_contents)
+    response = response.replace("\n", "")
+    
+    print(response)
+
+    #결과
+    <distinction: 혜택, 복지, 지원금, id: [25, 56, 52, 14, 19]>
+```
 <br/>자소서 작성 도우미 모델도 4번 과정과 같습니다.<br/><br/><br/>
   
 ## 5. 시연영상 💻
