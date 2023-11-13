@@ -96,6 +96,39 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
 
 ## 6. 팀원 👨‍👨‍👧‍👦
 컴퓨터학부<br/>
-|신영재|박준석|신동혁|이승운|
-|---|---|---|---|
-|팀장, Backend|디자인, AI|Frontend|Frontend|
+<table>
+  <tr>
+    <td><a href="https://github.com/KimKyuHoi">신영재</a></td>
+    <td><a href="https://github.com/yun8565">박준석</td>
+    <td><a href="https://github.com/Usimth">신동혁</td>
+    <td><a href="https://github.com/dahyun0917">이승운</td>
+  </tr>
+  <tr>
+    <td>팀장,Backend</td>
+    <td>디자인,AI</td>
+    <td>Frontend</td>
+    <td>Frontend</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://github.com/Apoliasm">
+        <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/576d230f-0a78-46f5-869c-ed5717cfc614" width="180px" height = "180px" />
+      </a>
+   </td>
+    <td>
+      <a href="https://github.com/Lucerna00">
+        <img style="border: 0px solid black !important; border-radius:50%; " src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/e3837edf-b81f-4f38-ad58-3139d996caef" width="180px" height = "180px" />
+      </a>
+   </td>
+    <td>
+      <a href="https://github.com/WannaBeTop">
+        <img style="border: 0px solid black !important; border-radius:50%; " src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/e8c1beee-db7f-48ca-b8e3-c14f3493e414" width="180px" height = "180px" />
+      </a>
+   </td>
+     <td>
+       <a href="https://github.com/Usimth">
+        <img style="border: 0px solid black !important; border-radius:50%; " src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/f5c8a24d-0c18-489f-966d-06a209d0ea0f" width="180px" height = "180px" />
+       </a>
+   </td>
+  </tr>
+</table>
