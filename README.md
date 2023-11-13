@@ -20,21 +20,76 @@
   
   <br/>이벤트 핸들러 함수로 handleInputChange 함수와 handleSendClick 함수를 사용하였습니다.
   <br/>handleSendClick함수는 사용자가 메시지를 보내려고 할 때 호출되며 기능은 다음과 같습니다.
-  
-  <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/85c11eeb-66b7-48b6-aef9-21f4960c4fbf" width="700px" height = "440px" />
 
-  
   <br/>1) 사용자의 메시지를 메시지 배열에 추가한 뒤, 입력필드를 비웁니다.
-  
-  <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/2bbb20e3-43b8-40c3-bc4c-1fc1f0926177" width="700px" height = "580px" />
-
-  
+  ```javascript
+        // 사용자의 메시지 
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+                message: inputValue,
+                sentTime: "just now",
+                sender: "User",
+                direction: "outgoing",
+                position: "single",
+                type: "text"
+            }
+        ]);
+    
+        setInputValue("");  //메시지 보낸 후 입력 필드 비우기
+  ```
   <br/>2) 서버로 메시지를 POST 요청으로 전송하며, 이후 서버에서 응답을 받으면 챗봇의 답변을 메시지 배열에 추가합니다.
-  
-  <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/113246980/a1b29926-49cc-4acb-8637-91a37f7e86ac" width="700px" height = "320px" />
+  ```javascript
+        fetch(serverURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", // JSON 형식의 데이터를 전송한다고 알리는 헤더
+            },
+            body: JSON.stringify(data1),
+        })
+            .then(response => response.json())
+            .then(result =>{
+                // 챗봇의 답변  
 
-  
+                let resultdata = "hello";
+
+                if (result.answer[0].type == "welfare") {
+                    const endNumber = result.answer.length;
+                    const startNumber = 0;
+
+                    const newMessages = [];
+
+                    const newMessage = {
+                        message: "회원님을 위한 "+ result.answer.length +"개의 지원금이 있네요!", 
+                        sentTime: "just now",
+                        sender: "희망이",
+                        direction: "incoming",
+                        position: "single",
+                        type: "text"
+                    };
+
+                    newMessages.push(newMessage);
+  ```
   <br/>3) 구성된 메시지 배열을 MessageList 컴포넌트에서 순회하며 각 메시지에 대한 Message 컴포넌트를 생성하여 보여줍니다.
+  ```javascript
+         for (let i = startNumber; i < endNumber; i++) {
+             var partdata = result.answer[i].info;
+
+             const messageContent = partdata.service + "을 알아 보시는 것은 어떨까요?\n\n" +
+             partdata.service  + "은(는) " + partdata.content + "\n\n" + partdata.target + "\n\n" + partdata.how;
+
+             const newMessage = {
+                 message: messageContent,
+                 sentTime: "just now",
+                 sender: "희망이",
+                 direction: "incoming",
+                 position: "single",
+                 type: "text"
+             };
+
+             newMessages.push(newMessage);
+         }
+  ```
   
   <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/95912522/7ee91c78-a4a7-48e0-9560-91f18833fc93" width="375px" height = "760px" />
 
