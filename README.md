@@ -177,9 +177,6 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
     retrieved_pages = db.similarity_search_with_relevance_scores(query, k=20)  # 유사도 상위 20개
     retrieved_contents = "\n".join([p[0].page_content for p in retrieved_pages])
 ```
-<img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/95912522/ec864999-5aad-4101-bbee-6a5b2a0a8d0e" width="700px" height = "120px" />
-
-
 <br/>4) 위에서 만든 벡터 데이터와 함께 chat 모델을 정의하고 사용합니다.
 <img style="border: 0px solid black !important; border-radius:50%;" src="https://github.com/Apoliasm/2023_nov_hackathon/assets/95912522/7fc77a6a-5c57-4ebd-b498-4a3d171e75e8" width="700px" height = "440px" />
 
