@@ -98,10 +98,10 @@ ai/apply_model.py, benefit_job_model.py 등의 모듈을 이용하여 생성형 
 컴퓨터학부<br/>
 <table>
   <tr>
-    <td><a href="https://github.com/KimKyuHoi">신영재</a></td>
-    <td><a href="https://github.com/yun8565">박준석</td>
-    <td><a href="https://github.com/Usimth">신동혁</td>
-    <td><a href="https://github.com/dahyun0917">이승운</td>
+    <td><a href="https://github.com/Apoliasm">신영재</a></td>
+    <td><a href="https://github.com/Lucerna00">박준석</td>
+    <td><a href="https://github.com/WannaBeTop">신동혁</td>
+    <td><a href="https://github.com/Usimth">이승운</td>
   </tr>
   <tr>
     <td>팀장,Backend</td>
